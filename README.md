@@ -16,8 +16,8 @@ Marta Sobas
 
 ### Algorytmy
 
-* Dijkstry (ścieżka między dwoma wierzchołkami $\rightarrow$ źródło - pozostałe)
-* Bellmana-Forda (ścieżka między dwoma wierzchołkami $\rightarrow$ źródło - pozostałe)
+* Dijkstry (ścieżka między dwoma wierzchołkami \rightarrow źródło - pozostałe)
+* Bellmana-Forda (ścieżka między dwoma wierzchołkami \rightarrow źródło - pozostałe)
 * Floyda-Warshalla (ścieżka między każdą parą wierzchołków)
 
 ### Reprezentacja grafów

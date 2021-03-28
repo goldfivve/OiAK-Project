@@ -2,10 +2,10 @@
 ### Temat 
 Analiza zużycia pamięci RAM na podstawie algorytmów do znajdowania najkrótszej ścieżki w grafie
 
-###Skład grupy
+### Skład grupy
 
-Dominika Kmiecik
-Marta Sobas)
+* Dominika Kmiecik
+* Marta Sobas
 
 ### Wykorzystywane języki programowania
 
@@ -14,7 +14,7 @@ Marta Sobas)
 * C#
 * Python
 
-###Algorytmy
+### Algorytmy
 
 * Dijkstry (ścieżka między dwoma wierzchołkami $\rightarrow$ źródło - pozostałe)
 * Bellmana-Forda (ścieżka między dwoma wierzchołkami $\rightarrow$ źródło - pozostałe)

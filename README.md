@@ -4,8 +4,8 @@ Analiza zużycia pamięci RAM na podstawie algorytmów do znajdowania najkrótsz
 
 ### Skład grupy
 
-* Dominika Kmiecik
-* Marta Sobas
+Dominika Kmiecik  
+Marta Sobas
 
 ### Wykorzystywane języki programowania
 
@@ -25,6 +25,15 @@ Analiza zużycia pamięci RAM na podstawie algorytmów do znajdowania najkrótsz
 * Macierz sąsiedztwa 
 * Lista sąsiedztwa
 
-###Mierzenie czasu i zużycia pamięci RAM
+### Mierzenie czasu i zużycia pamięci RAM
 
 W zależności od języka, algorytmu, reprezentacji grafu oraz ilości danych. Do pomiaru czasu wykorzystywane będą biblioteki go umożliwiające, dostępne w poszczególnych językach, do pomiaru zużycia pamięci RAM posłuży program Process Explorer.  
+
+### Harmonogram kroków 
+
+**13 kwietnia** - Implementacja grafów w każdym języku i każdej reprezentacji oraz przynajmniej jednego algorytmu  
+**27 kwietnia** - Implementacja pozostałych algorytmów  
+**11 maja** - Pomiary czasu i RAMu  
+**25 maja** - Analiza wyników  
+**8 czerwca** - Oddanie projektu  
+**22 czerwca** - Ewentualne poprawki i ostateczne oddanie projektu  

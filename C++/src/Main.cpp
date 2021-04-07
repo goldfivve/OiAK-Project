@@ -163,13 +163,10 @@ void dijkstraOnAdjacencyMatrix() {
 
 void clearDistAndVisited() {
     dist.clear();
-    for (int i = 0; i < dist.size(); i++) {
-        dist[i] = INF;
-    }
+    dist.resize(verticesNumber+1, INF);
+
     visited.clear();
-    for (int i = 0; i < visited.size(); i++) {
-        visited[i] = false;
-    }
+    visited.resize(verticesNumber+1, false);
 }
 
 void createRandomGraph() {
@@ -215,8 +212,9 @@ int main() {
 
     createRandomGraph();
 
+    createAdjacencyList();
     for (int i = 0; i < 10; i++) {
-        createAdjacencyList();
+        clearDistAndVisited();
 
         auto start = chrono::high_resolution_clock::now();
         dijkstraOnAdjacencyList();
@@ -226,8 +224,10 @@ int main() {
     }
 
     cout<<endl;
+
+    createAdjacencyMatrix();
     for (int i = 0; i < 10; i++) {
-        createAdjacencyMatrix();
+        clearDistAndVisited();
 
         auto start = std::chrono::high_resolution_clock::now();
         dijkstraOnAdjacencyMatrix();

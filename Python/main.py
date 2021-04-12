@@ -5,7 +5,7 @@ def read_file(file, matrix_list):
         first_line = graph_file.readline().replace("\n", "").split(" ")
         for item in first_line:
             first_line_input.append(int(item))
-        print(first_line_input)
+
         for line in graph_file:
             split_line = line.replace("\n", "").split(" ")
             for values in split_line:
@@ -27,6 +27,20 @@ def create_adjacency_matrix(entered_graph, vertices, edges):
     return new_matrix  # return created matrix
 
 
+def create_adjacency_list(entered_graph, vertices, edges):
+    new_list = {}
+    for vertex in range(0, vertices - 1):
+        for edge in range(0, edges):
+            temp_list = []
+            if vertex not in new_list:
+                new_list[vertex] = []
+            if entered_graph[edge][0] == vertex + 1:
+                temp_list.append(entered_graph[edge][1])
+                temp_list.append(entered_graph[edge][2])
+                new_list[vertex].append(temp_list)
+    return new_list
+
+
 if __name__ == '__main__':
     matrix_graph_list = []
 
@@ -34,8 +48,7 @@ if __name__ == '__main__':
     vertex_number = first_line_int[0]
     edge_number = first_line_int[1]
     start_vertex = first_line_int[2]
-    print(matrix_graph_list)
 
     graph_matrix = create_adjacency_matrix(matrix_graph_list, vertex_number, edge_number)
 
-    print(graph_matrix)
+    graph_list = create_adjacency_list(matrix_graph_list, vertex_number, edge_number)

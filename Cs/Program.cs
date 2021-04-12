@@ -8,6 +8,9 @@ namespace Cs
         {
             GraphList graphList = new GraphList();
             graphList.showAdjacencyList();
+
+            GraphMatrix graphMatrix = new GraphMatrix();
+            graphMatrix.showAdjacencyMatrix();
         }
     }
 }

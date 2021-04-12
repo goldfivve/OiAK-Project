@@ -72,7 +72,7 @@ namespace Cs
                 int secondVertex = Int32.Parse(splited[1]);
                 int edgeWeight = Int32.Parse(splited[2]);
 
-                Console.WriteLine("edge: " + firstVertex + " " +secondVertex + " " + edgeWeight);
+                Console.WriteLine("edge: " + firstVertex + " " + secondVertex + " " + edgeWeight);
                 adjacencyList[firstVertex].Add(new Pair(secondVertex, edgeWeight));
                 adjacencyList[secondVertex].Add(new Pair(firstVertex, edgeWeight));
 
@@ -152,6 +152,5 @@ namespace Cs
                 Console.WriteLine("");
             }
         }
-
     }
 }

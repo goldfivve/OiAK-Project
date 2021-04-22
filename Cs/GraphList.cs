@@ -18,8 +18,6 @@ namespace Cs
 
         public GraphList()
         {
-            priorityQueue = new PriorityQueue<Pair>();
-
             createAdjacencyList();
 
             dist = new int[verticesNumber + 1];
@@ -31,7 +29,7 @@ namespace Cs
                 visited[i] = false;
             }
 
-            priorityQueue = new PriorityQueue<Pair>();
+            //priorityQueue = new PriorityQueue<Pair>();
 
             Console.WriteLine(verticesNumber + " " + edgesNumber);
 
@@ -45,7 +43,7 @@ namespace Cs
 
             // Read the file and display it line by line.  
             System.IO.StreamReader file =
-                new System.IO.StreamReader(@"graph3.txt");
+                new System.IO.StreamReader(@"graph_simple.txt");
             while ((line = file.ReadLine()) != null)
             {
                 string[] splited = line.Split(' ');
@@ -57,11 +55,16 @@ namespace Cs
                     startingVertex = Int32.Parse(splited[2]);
                     firstLine = false;
 
+                    Console.WriteLine("wczytano: " + verticesNumber + " " + edgesNumber);
+
                     adjacencyList = new List<List<Pair>>(verticesNumber + 1);
+                    Console.WriteLine("size: " + adjacencyList.Capacity);
                     for (int i = 0; i <= verticesNumber; i++)
                     {
-                        adjacencyList[i] = new List<Pair>();
+                        Console.WriteLine("i = " + i);
+                        adjacencyList.Add(new List<Pair>());
                     }
+                    Console.WriteLine("size: " + adjacencyList.Capacity);
                     continue;
                 }
 
@@ -69,6 +72,7 @@ namespace Cs
                 int secondVertex = Int32.Parse(splited[1]);
                 int edgeWeight = Int32.Parse(splited[2]);
 
+                Console.WriteLine("edge: " + firstVertex + " " + secondVertex + " " + edgeWeight);
                 adjacencyList[firstVertex].Add(new Pair(secondVertex, edgeWeight));
                 adjacencyList[secondVertex].Add(new Pair(firstVertex, edgeWeight));
 
@@ -140,14 +144,13 @@ namespace Cs
         {
             for (int i = 1; i <= verticesNumber; i++)
             {
-                Console.WriteLine(i + ": ");
-                for (int j = 0; j < adjacencyList[i].Capacity; j++)
+                Console.Write(i + ": ");
+                for (int j = 0; j < adjacencyList[i].Count; j++)
                 {
-                    Console.WriteLine(adjacencyList[i][j].second + " ");
+                    Console.Write(adjacencyList[i][j].first + " ");
                 }
                 Console.WriteLine("");
             }
         }
-
     }
 }

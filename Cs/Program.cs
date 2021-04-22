@@ -6,9 +6,11 @@ namespace Cs
     {
         static void Main(string[] args)
         {
-            GraphList graphList;
-            
-            Console.WriteLine("Hello World!");
+            GraphList graphList = new GraphList();
+            graphList.showAdjacencyList();
+
+            GraphMatrix graphMatrix = new GraphMatrix();
+            graphMatrix.showAdjacencyMatrix();
         }
     }
 }

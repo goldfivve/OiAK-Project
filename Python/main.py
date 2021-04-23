@@ -1,4 +1,5 @@
 import math
+from time import perf_counter_ns
 
 positive_infinity = math.inf
 
@@ -153,14 +154,12 @@ def bellman_ford_on_adjacency_list(graph, vertices, start):
     return True
 
 
-def floyd_warshall_on_adjacency_matrix(graph, vertices):
+def prepare_floyd_warshall(vertices):
     d = [[positive_infinity for val in range(0, vertices)] for vertex in range(0, vertices)]
+    return d
 
-    for vertex in range(0, vertices - 1):
-        d[vertex][vertex] = 0
-        for edge in range(0, vertices):
-            d[vertex][edge] = graph[vertex][edge]
 
+def floyd_warshall_path_iteration(vertices, d):
     for iteration in range(0, vertices):
 
         for vertex in range(0, vertices):
@@ -169,6 +168,44 @@ def floyd_warshall_on_adjacency_matrix(graph, vertices):
                 if d[vertex][edge] > d[vertex][iteration] + d[iteration][edge]:
                     d[vertex][edge] = d[vertex][iteration] + d[iteration][edge]
     return d
+
+
+def floyd_warshall_on_adjacency_matrix(graph, vertices):
+    d = prepare_floyd_warshall(vertices)
+
+    for vertex in range(0, vertices):
+        d[vertex][vertex] = 0
+        for edge in range(0, vertices):
+            d[vertex][edge] = graph[vertex][edge]
+
+    floyd_warshall_path_iteration(vertices, d)
+
+    return d
+
+
+def floyd_warshall_on_adjacency_list(graph, vertices):
+    d = prepare_floyd_warshall(vertices)
+
+    for vertex in range(0, vertices):
+        d[vertex][vertex] = 0
+        for edge in range(len(graph[vertex])):
+            d[vertex][graph[vertex][edge][0] - 1] = graph[vertex][edge][1]
+
+    floyd_warshall_path_iteration(vertices, d)
+
+    return d
+
+
+def time_measure(function, *args, test_number=1):
+    sum = 0
+
+    for i in range(0, test_number):
+        start = perf_counter_ns()
+        function(*args)
+        end = perf_counter_ns()
+        sum = sum + (end - start)
+
+    return sum / test_number
 
 
 if __name__ == '__main__':
@@ -182,9 +219,10 @@ if __name__ == '__main__':
     graph_matrix = create_adjacency_matrix(matrix_graph_list, vertex_number, edge_number)
     graph_list = create_adjacency_list(matrix_graph_list, vertex_number, edge_number)
 
-    # dijkstra_on_adjacency_matrix(graph_matrix, vertex_number, start_vertex - 1)
-    # bellman_ford_on_adjacency_matrix(graph_matrix, vertex_number, start_vertex - 1)
-    # floyd_warshall_on_adjacency_matrix(graph_matrix, vertex_number)
+    time_measure(dijkstra_on_adjacency_matrix, graph_matrix, vertex_number, start_vertex - 1, test_number=1000)
+    time_measure(bellman_ford_on_adjacency_matrix, graph_matrix, vertex_number, start_vertex - 1, test_number=1000)
+    time_measure(floyd_warshall_on_adjacency_matrix, graph_matrix, vertex_number, test_number=1000)
 
-    # dijkstra_on_adjacency_list(graph_list, vertex_number, start_vertex - 1)
-    bellman_ford_on_adjacency_list(graph_list, vertex_number, start_vertex - 1)
+    time_measure(dijkstra_on_adjacency_list, graph_list, vertex_number, start_vertex - 1, test_number=1000)
+    time_measure(bellman_ford_on_adjacency_list, graph_list, vertex_number, start_vertex - 1, test_number=1000)
+    time_measure(floyd_warshall_on_adjacency_list, graph_list, vertex_number, test_number=1000)

@@ -55,8 +55,7 @@ def dijkstra_on_adjacency_matrix(graph, vertices, start):
     while len(q) > 0:
         min_cost_index = 0
         min_cost = positive_infinity
-        # wartosc ma nalezec do q i byc najmniejsza
-        # nie zmienia sie, gdy nie nalezy do q
+
         for edge_cost in range(0, vertices):
             if d[edge_cost] < min_cost and edge_cost in q:
                 min_cost_index = edge_cost
@@ -72,6 +71,32 @@ def dijkstra_on_adjacency_matrix(graph, vertices, start):
                     p[vertex] = min_cost_index
 
 
+def bellman_ford_on_adjacency_matrix(graph, vertices, start):
+    positive_infinity = math.inf
+    d = [positive_infinity for vertex in range(0, vertices)]
+    d[start] = 0
+    p = [-1 for vertex in range(0, vertices)]
+
+    for iteration in range(0, vertices - 1):
+        test = True
+        for vertex in range(0, vertices):
+            for edge in range(0, vertices):
+                if graph[vertex][edge] != 0 and d[edge] <= d[vertex] + graph[vertex][edge]:
+                    continue
+                if graph[vertex][edge] != 0:
+                    test = False
+                    d[edge] = d[vertex] + graph[vertex][edge]
+                    p[edge] = vertex
+
+        if test:
+            return True
+    for vertex in range(0, vertices):
+        for edge in range(0, vertices):
+            if d[edge] > d[vertex] + graph[vertex][edge]:
+                return False
+    return True
+
+
 if __name__ == '__main__':
     matrix_graph_list = []
 
@@ -83,3 +108,4 @@ if __name__ == '__main__':
     graph_matrix = create_adjacency_matrix(matrix_graph_list, vertex_number, edge_number)
     graph_list = create_adjacency_list(matrix_graph_list, vertex_number, edge_number)
     dijkstra_on_adjacency_matrix(graph_matrix, vertex_number, start_vertex - 1)
+    bellman_ford_on_adjacency_matrix(graph_matrix, vertex_number, start_vertex - 1)

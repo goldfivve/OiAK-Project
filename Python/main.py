@@ -31,17 +31,17 @@ def create_adjacency_matrix(entered_graph, vertices, edges):
 
 
 def create_adjacency_list(entered_graph, vertices, edges):
-    new_list = {}
+    new_dict = {}
     for vertex in range(0, vertices):
         for edge in range(0, edges):
             temp_list = []
-            if vertex not in new_list:
-                new_list[vertex] = []
+            if vertex not in new_dict:
+                new_dict[vertex] = []
             if entered_graph[edge][0] == vertex + 1:
                 temp_list.append(entered_graph[edge][1])
                 temp_list.append(entered_graph[edge][2])
-                new_list[vertex].append(temp_list)
-    return new_list
+                new_dict[vertex].append(temp_list)
+    return new_dict
 
 
 def dijkstra_on_adjacency_matrix(graph, vertices, start):
@@ -81,9 +81,10 @@ def bellman_ford_on_adjacency_matrix(graph, vertices, start):
         test = True
         for vertex in range(0, vertices):
             for edge in range(0, vertices):
-                if graph[vertex][edge] != 0 and d[edge] <= d[vertex] + graph[vertex][edge]:
-                    continue
                 if graph[vertex][edge] != 0:
+                    if d[edge] <= d[vertex] + graph[vertex][edge]:
+                        continue
+
                     test = False
                     d[edge] = d[vertex] + graph[vertex][edge]
                     p[edge] = vertex
@@ -95,6 +96,25 @@ def bellman_ford_on_adjacency_matrix(graph, vertices, start):
             if d[edge] > d[vertex] + graph[vertex][edge]:
                 return False
     return True
+
+
+def floyd_warshall_on_adjacency_matrix(graph, vertices):
+    positive_infinity = math.inf
+    d = [[positive_infinity for val in range(0, vertices)] for vertex in range(0, vertices)]
+
+    for vertex in range(0, vertices - 1):
+        d[vertex][vertex] = 0
+        for edge in range(0, vertices):
+            d[vertex][edge] = graph[vertex][edge]
+
+    for iteration in range(0, vertices):
+
+        for vertex in range(0, vertices):
+            for edge in range(0, vertices):
+
+                if d[vertex][edge] > d[vertex][iteration] + d[iteration][edge]:
+                    d[vertex][edge] = d[vertex][iteration] + d[iteration][edge]
+    return d
 
 
 if __name__ == '__main__':
@@ -109,3 +129,4 @@ if __name__ == '__main__':
     graph_list = create_adjacency_list(matrix_graph_list, vertex_number, edge_number)
     dijkstra_on_adjacency_matrix(graph_matrix, vertex_number, start_vertex - 1)
     bellman_ford_on_adjacency_matrix(graph_matrix, vertex_number, start_vertex - 1)
+    floyd_warshall_on_adjacency_matrix(graph_matrix, vertex_number, start_vertex - 1)

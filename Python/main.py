@@ -1,5 +1,7 @@
 import math
 
+positive_infinity = math.inf
+
 
 def read_file(file, matrix_list):
     values_list = []
@@ -44,13 +46,17 @@ def create_adjacency_list(entered_graph, vertices, edges):
     return new_dict
 
 
-def dijkstra_on_adjacency_matrix(graph, vertices, start):
+def prepare_dijkstra(vertices, start):
     q = [vertex for vertex in range(0, vertices)]  # graph vertices
     s = []
-    positive_infinity = math.inf
-    d = [positive_infinity for vertex in range(0, vertices)]
+    d = [positive_infinity] * vertices
     d[start] = 0
-    p = [-1 for vertex in range(0, vertices)]
+    p = [-1] * vertices
+    return q, s, d, p
+
+
+def dijkstra_on_adjacency_matrix(graph, vertices, start):
+    q, s, d, p = prepare_dijkstra(vertices, start)
 
     while len(q) > 0:
         min_cost_index = 0
@@ -71,12 +77,38 @@ def dijkstra_on_adjacency_matrix(graph, vertices, start):
                     p[vertex] = min_cost_index
 
 
-def bellman_ford_on_adjacency_matrix(graph, vertices, start):
-    positive_infinity = math.inf
-    d = [positive_infinity for vertex in range(0, vertices)]
-    d[start] = 0
-    p = [-1 for vertex in range(0, vertices)]
+def dijkstra_on_adjacency_list(graph, vertices, start):
+    q, s, d, p = prepare_dijkstra(vertices, start)
+    while len(q) > 0:
+        min_cost_index = 0
+        min_cost = positive_infinity
 
+        for edge_cost in range(0, vertices):
+            if d[edge_cost] < min_cost and edge_cost in q:
+                min_cost_index = edge_cost
+                min_cost = d[edge_cost]
+
+        s.append(min_cost_index)
+        q.remove(min_cost_index)
+
+        len(graph[min_cost_index])
+
+        for i in range(len(graph[min_cost_index])):
+            if graph[min_cost_index][i][0] - 1 in q:
+                if d[graph[min_cost_index][i][0] - 1] > d[min_cost_index] + graph[min_cost_index][i][1]:
+                    d[graph[min_cost_index][i][0] - 1] = d[min_cost_index] + graph[min_cost_index][i][1]
+                    p[graph[min_cost_index][i][0] - 1] = min_cost_index
+
+
+def prepare_bellman_ford(vertices, start):
+    d = [positive_infinity] * vertices
+    d[start] = 0
+    p = [-1] * vertices
+    return d, p
+
+
+def bellman_ford_on_adjacency_matrix(graph, vertices, start):
+    d, p = prepare_bellman_ford(vertices, start)
     for iteration in range(0, vertices - 1):
         test = True
         for vertex in range(0, vertices):
@@ -98,8 +130,30 @@ def bellman_ford_on_adjacency_matrix(graph, vertices, start):
     return True
 
 
+def bellman_ford_on_adjacency_list(graph, vertices, start):
+    d, p = prepare_bellman_ford(vertices, start)
+    for iteration in range(0, vertices - 1):
+        test = True
+        for vertex in range(0, vertices):
+            for i in range(len(graph[vertex])):
+
+                if d[graph[vertex][i][0] - 1] <= d[vertex] + graph[vertex][i][1]:
+                    continue
+
+                test = False
+                d[graph[vertex][i][0] - 1] = d[vertex] + graph[vertex][i][1]
+                p[graph[vertex][i][0] - 1] = vertex
+
+        if test:
+            return True
+    for vertex in range(0, vertices):
+        for i in range(len(graph[vertex])):
+            if d[graph[vertex][i][0] - 1] > d[vertex] + graph[vertex][graph[vertex][i][1]]:
+                return False
+    return True
+
+
 def floyd_warshall_on_adjacency_matrix(graph, vertices):
-    positive_infinity = math.inf
     d = [[positive_infinity for val in range(0, vertices)] for vertex in range(0, vertices)]
 
     for vertex in range(0, vertices - 1):
@@ -127,6 +181,10 @@ if __name__ == '__main__':
 
     graph_matrix = create_adjacency_matrix(matrix_graph_list, vertex_number, edge_number)
     graph_list = create_adjacency_list(matrix_graph_list, vertex_number, edge_number)
-    dijkstra_on_adjacency_matrix(graph_matrix, vertex_number, start_vertex - 1)
-    bellman_ford_on_adjacency_matrix(graph_matrix, vertex_number, start_vertex - 1)
-    floyd_warshall_on_adjacency_matrix(graph_matrix, vertex_number, start_vertex - 1)
+
+    # dijkstra_on_adjacency_matrix(graph_matrix, vertex_number, start_vertex - 1)
+    # bellman_ford_on_adjacency_matrix(graph_matrix, vertex_number, start_vertex - 1)
+    # floyd_warshall_on_adjacency_matrix(graph_matrix, vertex_number)
+
+    # dijkstra_on_adjacency_list(graph_list, vertex_number, start_vertex - 1)
+    bellman_ford_on_adjacency_list(graph_list, vertex_number, start_vertex - 1)

@@ -28,6 +28,7 @@ vector<vector<int>> adjacencyMatrix;
 
 vector<int> dist;  //distances
 vector<bool> visited; //to know if the vertex is already visited: visited[v] = false -> not visited, true -> visited
+vector<int> predecessor;
 
 priority_queue<vertexPair, vector<vertexPair>, greater<vertexPair> > Q; //priority queue for getting the smallest weight
 
@@ -161,12 +162,49 @@ void dijkstraOnAdjacencyMatrix() {
     }
 }
 
+void BellmanFordOnAdjacencyList() {
+    dist[startingVertex] = 0;
+    int v, w;
+    for(int k=0; k<verticesNumber; k++) {
+        for(int u=0; u<verticesNumber; u++) {
+            for(int i=0; i<adjacencyList[u].size(); i++) {
+                v = adjacencyList[u][i].first;
+                w = adjacencyMatrix[u][v];
+                if(dist[u] + w < dist[v]) {
+                    dist[v] = dist[u] + w;
+                    predecessor[v] = u;
+                }
+            }
+        }
+    }
+}
+
+void BellmanFordOnAdjacencyMatrix() {
+    dist[startingVertex] = 0;
+    int w;
+    for(int k=0; k<verticesNumber; k++) {
+        for(int u=0; u<verticesNumber; u++) {
+            for(int v=0; v<verticesNumber; v++) {
+                w = adjacencyMatrix[u][v];
+                if(dist[u] + w < dist[v]) {
+                    dist[v] = dist[u] + w;
+                    predecessor[v] = u;
+                }
+            }
+        }
+    }
+}
+
+
 void clearDistAndVisited() {
     dist.clear();
     dist.resize(verticesNumber+1, INF);
 
     visited.clear();
     visited.resize(verticesNumber+1, false);
+
+    predecessor.clear();
+    predecessor.resize(verticesNumber, -1);
 }
 
 void createRandomGraph() {
@@ -207,6 +245,8 @@ void createRandomGraph() {
         printf("Doesn't work...\n");
     }
 }
+
+
 
 int main() {
 

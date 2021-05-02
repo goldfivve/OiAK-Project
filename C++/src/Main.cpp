@@ -37,8 +37,8 @@ void createAdjacencyList() {
     int firstVertex, secondVertex, edgeWeight;
     string line;
 
-    //ifstream file("graph3.txt");
-    ifstream file("graph_simple.txt");
+    ifstream file("graph3.txt");
+    //ifstream file("graph_simple.txt");
 
     getline(file, line);
     stringstream lineStream(line);
@@ -80,8 +80,8 @@ void createAdjacencyMatrix() {
     int firstVertex, secondVertex, edgeWeight;
     string line;
 
-    //ifstream file("graph3.txt");
-    ifstream file("graph_simple.txt");
+    ifstream file("graph3.txt");
+    //ifstream file("graph_simple.txt");
 
     getline(file, line);
     stringstream lineStream(line);
@@ -200,7 +200,7 @@ void bellmanFordOnAdjacencyMatrix() {
         for (int u = 1; u <= verticesNumber; u++) {
             for (int v = 1; v <= verticesNumber; v++) {
                 w = adjacencyMatrix[u][v];
-                if(w == INF){
+                if (w == INF) {
                     continue;
                 }
                 if (dist[u] + w < dist[v]) {
@@ -316,10 +316,13 @@ void createRandomGraph() {
 
 
 int main() {
-/*
+
     createRandomGraph();
 
     createAdjacencyList();
+
+    cout << "Adjacency List:\n";
+    cout << "Dijkstra: \n";
     for (int i = 0; i < 10; i++) {
         clearDistAndVisited();
 
@@ -327,13 +330,35 @@ int main() {
         dijkstraOnAdjacencyList();
         auto end = chrono::high_resolution_clock::now();
         chrono::duration<double, std::milli> elapsed_seconds = end - start;
-        cout << "Elapsed time for Adjacency List: " << elapsed_seconds.count() << " ms\n";
+        cout << "Elapsed time: " << elapsed_seconds.count() << " ms\n";
     }
 
-    cout << endl;
+    cout << "Bellman-Ford: \n";
+    for (int i = 0; i < 10; i++) {
+        clearDistAndVisited();
 
+        auto start = chrono::high_resolution_clock::now();
+        bellmanFordOnAdjacencyList();
+        auto end = chrono::high_resolution_clock::now();
+        chrono::duration<double, std::milli> elapsed_seconds = end - start;
+        cout << "Elapsed time: " << elapsed_seconds.count() << " ms\n";
+    }
+
+    cout << "FLoyd-Warshall: \n";
+    for (int i = 0; i < 10; i++) {
+        clearDistAndVisited();
+
+        auto start = chrono::high_resolution_clock::now();
+        floydWarshallOnAdjacencyList();
+        auto end = chrono::high_resolution_clock::now();
+        chrono::duration<double, std::milli> elapsed_seconds = end - start;
+        cout << "Elapsed time: " << elapsed_seconds.count() << " ms\n";
+    }
+
+
+    cout << endl;
     createAdjacencyMatrix();
-    /*
+
     for (int i = 0; i < 10; i++) {
         clearDistAndVisited();
 
@@ -343,35 +368,83 @@ int main() {
         chrono::duration<double, std::milli> elapsed_seconds = end - start;
         cout << "Elapsed time for Adjacency Matrix: " << elapsed_seconds.count() << " ms\n";
     }
-*/
-    cout << verticesNumber << endl;
-    clearDistAndVisited();
-    createAdjacencyList();
 
-    bellmanFordOnAdjacencyList();
-    for (int i = 1; i < dist.size(); i++) {
-        cout << dist[i] << " ";
-    }
-    cout << endl;
-    for (int i = 1; i < predecessor.size(); i++) {
-        cout << predecessor[i] << " ";
-    }
-    cout << endl;
+    cout << "Bellman-Ford: \n";
+    for (int i = 0; i < 10; i++) {
+        clearDistAndVisited();
 
-    cout << endl;
-    clearDistAndVisited();
-    createAdjacencyMatrix();
-
-    bellmanFordOnAdjacencyMatrix();
-    for (int i = 1; i < dist.size(); i++) {
-        cout << dist[i] << " ";
+        auto start = chrono::high_resolution_clock::now();
+        bellmanFordOnAdjacencyMatrix();
+        auto end = chrono::high_resolution_clock::now();
+        chrono::duration<double, std::milli> elapsed_seconds = end - start;
+        cout << "Elapsed time: " << elapsed_seconds.count() << " ms\n";
     }
-    cout << endl;
-    for (int i = 1; i < predecessor.size(); i++) {
-        cout << predecessor[i] << " ";
-    }
-    cout << endl;
 
+    cout << "FLoyd-Warshall: \n";
+    for (int i = 0; i < 10; i++) {
+        clearDistAndVisited();
+
+        auto start = chrono::high_resolution_clock::now();
+        floydWarshallOnAdjacencyMatrix();
+        auto end = chrono::high_resolution_clock::now();
+        chrono::duration<double, std::milli> elapsed_seconds = end - start;
+        cout << "Elapsed time: " << elapsed_seconds.count() << " ms\n";
+    }
+
+
+//    cout << verticesNumber << endl;
+//    clearDistAndVisited();
+//    createAdjacencyList();
+//
+//    bellmanFordOnAdjacencyList();
+//    for (int i = 1; i < dist.size(); i++) {
+//        cout << dist[i] << " ";
+//    }
+//    cout << endl;
+//    for (int i = 1; i < predecessor.size(); i++) {
+//        cout << predecessor[i] << " ";
+//    }
+//    cout << endl;
+//
+//    cout << endl;
+//    clearDistAndVisited();
+//    createAdjacencyMatrix();
+//
+//    bellmanFordOnAdjacencyMatrix();
+//    for (int i = 1; i < dist.size(); i++) {
+//        cout << dist[i] << " ";
+//    }
+//    cout << endl;
+//    for (int i = 1; i < predecessor.size(); i++) {
+//        cout << predecessor[i] << " ";
+//    }
+//    cout << endl;
+//
+//    cout << endl;
+//    clearDistAndVisited();
+//    createAdjacencyList();
+//
+//    floydWarshallOnAdjacencyList();
+//    for (int i = 1; i < dist2D.size(); i++) {
+//        for (int j = 1; j < dist2D[i].size(); j++) {
+//            cout << dist2D[i][j] << " ";
+//        }
+//        cout << endl;
+//    }
+//    cout << endl;
+//
+//    cout << endl;
+//    clearDistAndVisited();
+//    createAdjacencyMatrix();
+//
+//    floydWarshallOnAdjacencyMatrix();
+//    for (int i = 1; i < dist2D.size(); i++) {
+//        for (int j = 1; j < dist2D[i].size(); j++) {
+//            cout << dist2D[i][j] << " ";
+//        }
+//        cout << endl;
+//    }
+//    cout << endl;
 
     return 0;
 }

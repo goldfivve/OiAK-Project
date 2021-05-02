@@ -6,34 +6,72 @@ public class Main {
         System.out.println("Graph List");
 
         GraphList graphList = new GraphList();
-        graphList.showAdjacencyList();
+//        graphList.showAdjacencyList();
+
         System.out.println("\nDijkstra:");
-        graphList.dijkstra();
-        graphList.showDist();
-        graphList.clearDistAndVisited();
+        for(int i=0; i<10; i++) {
+            graphList.clearDistAndVisited();
+
+            long startTime = System.nanoTime();
+            graphList.dijkstra();
+            long elapsedTime = System.nanoTime() - startTime;
+            System.out.println("Elapsed time: " + elapsedTime);
+        }
+
+        //graphList.showDist();
         System.out.println("\nBellman-Ford:");
-        graphList.bellmanFord();
-        graphList.showDist();
-        graphList.clearDistAndVisited();
+        for(int i=0; i<10; i++) {
+            graphList.clearDistAndVisited();
+
+            long startTime = System.nanoTime();
+            graphList.bellmanFord();
+            long elapsedTime = System.nanoTime() - startTime;
+            System.out.println("Elapsed time: " + elapsedTime);
+        }
         System.out.println("\nFloyd-Warshall:");
-        graphList.floydWarshall();
-        graphList.showDist2D();
+        for(int i=0; i<10; i++) {
+            graphList.clearDistAndVisited();
+
+            long startTime = System.nanoTime();
+            graphList.floydWarshall();
+            long elapsedTime = System.nanoTime() - startTime;
+            System.out.println("Elapsed time: " + elapsedTime);
+        }
 
         System.out.println("\nGraph Matrix");
 
         GraphMatrix graphMatrix = new GraphMatrix();
-        graphMatrix.showAdjacencyMatrix();
+//        graphMatrix.showAdjacencyMatrix();
+
         System.out.println("\nDijkstra:");
-        graphMatrix.dijkstra();
-        graphMatrix.showDist();
-        graphMatrix.clearDistAndVisited();
+        for(int i=0; i<10; i++) {
+            graphMatrix.clearDistAndVisited();
+
+            long startTime = System.nanoTime();
+            graphMatrix.dijkstra();
+            long elapsedTime = System.nanoTime() - startTime;
+            System.out.println("Elapsed time: " + elapsedTime);
+        }
+
+        //graphList.showDist();
         System.out.println("\nBellman-Ford:");
-        graphMatrix.bellmanFord();
-        graphMatrix.showDist();
-        graphMatrix.clearDistAndVisited();
+        for(int i=0; i<10; i++) {
+            graphMatrix.clearDistAndVisited();
+
+            long startTime = System.nanoTime();
+            graphMatrix.bellmanFord();
+            long elapsedTime = System.nanoTime() - startTime;
+            System.out.println("Elapsed time: " + elapsedTime);
+        }
         System.out.println("\nFloyd-Warshall:");
-        graphMatrix.floydWarshall();
-        graphMatrix.showDist2D();
+        for(int i=0; i<10; i++) {
+            graphMatrix.clearDistAndVisited();
+
+            long startTime = System.nanoTime();
+            graphMatrix.floydWarshall();
+            long elapsedTime = System.nanoTime() - startTime;
+            System.out.println("Elapsed time: " + elapsedTime);
+        }
 
     }
 }

@@ -47,7 +47,8 @@ public class GraphList {
 
     private void createAdjacencyList() {
         try {
-            File myObj = new File("graph_simple.txt");
+            //File myObj = new File("graph_simple.txt");
+            File myObj = new File("graph3.txt");
             Scanner myReader = new Scanner(myObj);
 
             boolean firstLine = true;

@@ -29,6 +29,7 @@ vector<vector<int>> adjacencyMatrix;
 vector<int> dist;  //distances
 vector<bool> visited; //to know if the vertex is already visited: visited[v] = false -> not visited, true -> visited
 vector<int> predecessor;
+vector<vector<int>> dist2D;
 
 priority_queue<vertexPair, vector<vertexPair>, greater<vertexPair> > Q; //priority queue for getting the smallest weight
 
@@ -52,6 +53,12 @@ void createAdjacencyList() {
     adjacencyList.resize(verticesNumber + 1);
     dist.resize(verticesNumber + 1, INF);
     visited.resize(verticesNumber + 1, false); //all vertices are unvisited at the beginning
+    predecessor.resize(verticesNumber + 1, -1);
+    dist2D.resize(verticesNumber + 1);
+    for (int i = 0; i <= verticesNumber; i++) {
+        dist2D[i].resize(verticesNumber + 1, INF);
+    }
+
 
     while (getline(file, line)) {
         vector<int> lineData;
@@ -91,6 +98,11 @@ void createAdjacencyMatrix() {
     }
     dist.resize(verticesNumber + 1, INF);
     visited.resize(verticesNumber + 1, false); //all vertices are unvisited at the beginning
+    predecessor.resize(verticesNumber + 1, -1);
+    dist2D.resize(verticesNumber + 1);
+    for (int i = 0; i <= verticesNumber; i++) {
+        dist2D[i].resize(verticesNumber + 1, INF);
+    }
 
     while (getline(file, line)) {
         vector<int> lineData;
@@ -165,12 +177,12 @@ void dijkstraOnAdjacencyMatrix() {
 void BellmanFordOnAdjacencyList() {
     dist[startingVertex] = 0;
     int v, w;
-    for(int k=0; k<verticesNumber; k++) {
-        for(int u=0; u<verticesNumber; u++) {
-            for(int i=0; i<adjacencyList[u].size(); i++) {
+    for (int k = 0; k < verticesNumber; k++) {
+        for (int u = 1; u <= verticesNumber; u++) {
+            for (int i = 0; i < adjacencyList[u].size(); i++) {
                 v = adjacencyList[u][i].first;
-                w = adjacencyMatrix[u][v];
-                if(dist[u] + w < dist[v]) {
+                w = adjacencyList[u][i].second;
+                if (dist[u] + w < dist[v]) {
                     dist[v] = dist[u] + w;
                     predecessor[v] = u;
                 }
@@ -182,11 +194,11 @@ void BellmanFordOnAdjacencyList() {
 void BellmanFordOnAdjacencyMatrix() {
     dist[startingVertex] = 0;
     int w;
-    for(int k=0; k<verticesNumber; k++) {
-        for(int u=0; u<verticesNumber; u++) {
-            for(int v=0; v<verticesNumber; v++) {
+    for (int k = 0; k < verticesNumber; k++) {
+        for (int u = 1; u <= verticesNumber; u++) {
+            for (int v = 1; v <= verticesNumber; v++) {
                 w = adjacencyMatrix[u][v];
-                if(dist[u] + w < dist[v]) {
+                if (dist[u] + w < dist[v]) {
                     dist[v] = dist[u] + w;
                     predecessor[v] = u;
                 }
@@ -195,16 +207,67 @@ void BellmanFordOnAdjacencyMatrix() {
     }
 }
 
+void FloydWarshallOnAdjacencyList() {
+    int v;
+    for (int u = 1; u <= verticesNumber; u++) {
+        for (int i = 0; i < adjacencyList[u].size(); i++) {
+            v = adjacencyList[u][i].first;
+            dist2D[u][v] = adjacencyList[u][i].second;
+        }
+    }
+
+    for (int v = 1; v <= verticesNumber; v++) {
+        dist2D[v][v] = 0;
+    }
+
+    for (int k = 1; k <= verticesNumber; k++) {
+        for (int i = 1; i <= verticesNumber; i++) {
+            for (int j = 1; j <= verticesNumber; j++) {
+                if (dist2D[i][j] > dist2D[i][k] + dist2D[k][j]) {
+                    dist2D[i][j] = dist2D[i][k] + dist2D[k][j];
+                }
+            }
+        }
+    }
+}
+
+void FloydWarshallOnAdjacencyMatrix() {
+    for (int u = 1; u <= verticesNumber; u++) {
+        for (int v = 1; v <= verticesNumber; v++) {
+            dist2D[u][v] = adjacencyMatrix[u][v];
+        }
+    }
+
+    for (int v = 1; v <= verticesNumber; v++) {
+        dist2D[v][v] = 0;
+    }
+
+    for (int k = 1; k <= verticesNumber; k++) {
+        for (int i = 1; i <= verticesNumber; i++) {
+            for (int j = 1; j <= verticesNumber; j++) {
+                if (dist2D[i][j] > dist2D[i][k] + dist2D[k][j]) {
+                    dist2D[i][j] = dist2D[i][k] + dist2D[k][j];
+                }
+            }
+        }
+    }
+}
 
 void clearDistAndVisited() {
     dist.clear();
-    dist.resize(verticesNumber+1, INF);
+    dist.resize(verticesNumber + 1, INF);
 
     visited.clear();
-    visited.resize(verticesNumber+1, false);
+    visited.resize(verticesNumber + 1, false);
 
     predecessor.clear();
-    predecessor.resize(verticesNumber, -1);
+    predecessor.resize(verticesNumber + 1, -1);
+
+    dist2D.clear();
+    dist2D.resize(verticesNumber + 1);
+    for (int i = 0; i <= verticesNumber; i++) {
+        dist2D[i].resize(verticesNumber + 1, INF);
+    }
 }
 
 void createRandomGraph() {
@@ -219,14 +282,14 @@ void createRandomGraph() {
         s = 1;
         myfile << n << " " << m << " " << s << endl;
 
-        while(counter){
+        while (counter) {
             for (int i = 1; i <= n; i++) {
                 for (int j = i + 1; j <= n; j++) {
                     int b = rand() % 10;
-                    if(b > 3) {
+                    if (b > 3) {
                         continue;
                     }
-                    if(counter == 0) {
+                    if (counter == 0) {
                         break;
                     }
                     counter--;
@@ -234,7 +297,7 @@ void createRandomGraph() {
                     myfile << i << " " << j << " " << w << endl;
 
                 }
-                if(counter == 0) {
+                if (counter == 0) {
                     break;
                 }
             }
@@ -245,7 +308,6 @@ void createRandomGraph() {
         printf("Doesn't work...\n");
     }
 }
-
 
 
 int main() {
@@ -263,7 +325,7 @@ int main() {
         cout << "Elapsed time for Adjacency List: " << elapsed_seconds.count() << " ms\n";
     }
 
-    cout<<endl;
+    cout << endl;
 
     createAdjacencyMatrix();
     for (int i = 0; i < 10; i++) {

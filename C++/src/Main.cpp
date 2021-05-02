@@ -37,7 +37,8 @@ void createAdjacencyList() {
     int firstVertex, secondVertex, edgeWeight;
     string line;
 
-    ifstream file("graph3.txt");
+    //ifstream file("graph3.txt");
+    ifstream file("graph_simple.txt");
 
     getline(file, line);
     stringstream lineStream(line);
@@ -79,7 +80,8 @@ void createAdjacencyMatrix() {
     int firstVertex, secondVertex, edgeWeight;
     string line;
 
-    ifstream file("graph3.txt");
+    //ifstream file("graph3.txt");
+    ifstream file("graph_simple.txt");
 
     getline(file, line);
     stringstream lineStream(line);
@@ -174,7 +176,7 @@ void dijkstraOnAdjacencyMatrix() {
     }
 }
 
-void BellmanFordOnAdjacencyList() {
+void bellmanFordOnAdjacencyList() {
     dist[startingVertex] = 0;
     int v, w;
     for (int k = 0; k < verticesNumber; k++) {
@@ -191,13 +193,16 @@ void BellmanFordOnAdjacencyList() {
     }
 }
 
-void BellmanFordOnAdjacencyMatrix() {
+void bellmanFordOnAdjacencyMatrix() {
     dist[startingVertex] = 0;
     int w;
     for (int k = 0; k < verticesNumber; k++) {
         for (int u = 1; u <= verticesNumber; u++) {
             for (int v = 1; v <= verticesNumber; v++) {
                 w = adjacencyMatrix[u][v];
+                if(w == INF){
+                    continue;
+                }
                 if (dist[u] + w < dist[v]) {
                     dist[v] = dist[u] + w;
                     predecessor[v] = u;
@@ -207,7 +212,7 @@ void BellmanFordOnAdjacencyMatrix() {
     }
 }
 
-void FloydWarshallOnAdjacencyList() {
+void floydWarshallOnAdjacencyList() {
     int v;
     for (int u = 1; u <= verticesNumber; u++) {
         for (int i = 0; i < adjacencyList[u].size(); i++) {
@@ -231,7 +236,7 @@ void FloydWarshallOnAdjacencyList() {
     }
 }
 
-void FloydWarshallOnAdjacencyMatrix() {
+void floydWarshallOnAdjacencyMatrix() {
     for (int u = 1; u <= verticesNumber; u++) {
         for (int v = 1; v <= verticesNumber; v++) {
             dist2D[u][v] = adjacencyMatrix[u][v];
@@ -311,7 +316,7 @@ void createRandomGraph() {
 
 
 int main() {
-
+/*
     createRandomGraph();
 
     createAdjacencyList();
@@ -328,6 +333,7 @@ int main() {
     cout << endl;
 
     createAdjacencyMatrix();
+    /*
     for (int i = 0; i < 10; i++) {
         clearDistAndVisited();
 
@@ -337,6 +343,35 @@ int main() {
         chrono::duration<double, std::milli> elapsed_seconds = end - start;
         cout << "Elapsed time for Adjacency Matrix: " << elapsed_seconds.count() << " ms\n";
     }
+*/
+    cout << verticesNumber << endl;
+    clearDistAndVisited();
+    createAdjacencyList();
+
+    bellmanFordOnAdjacencyList();
+    for (int i = 1; i < dist.size(); i++) {
+        cout << dist[i] << " ";
+    }
+    cout << endl;
+    for (int i = 1; i < predecessor.size(); i++) {
+        cout << predecessor[i] << " ";
+    }
+    cout << endl;
+
+    cout << endl;
+    clearDistAndVisited();
+    createAdjacencyMatrix();
+
+    bellmanFordOnAdjacencyMatrix();
+    for (int i = 1; i < dist.size(); i++) {
+        cout << dist[i] << " ";
+    }
+    cout << endl;
+    for (int i = 1; i < predecessor.size(); i++) {
+        cout << predecessor[i] << " ";
+    }
+    cout << endl;
+
 
     return 0;
 }

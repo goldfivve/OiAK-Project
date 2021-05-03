@@ -13,6 +13,8 @@ namespace Cs
 
         int[] dist;
         bool[] visited;
+        int[] predecessor;
+        int[][] dist2D;
 
         PriorityQueue<Pair> priorityQueue;
 
@@ -22,17 +24,22 @@ namespace Cs
 
             dist = new int[verticesNumber + 1];
             visited = new bool[verticesNumber + 1];
+            predecessor = new int[verticesNumber + 1];
+            dist2D = new int[verticesNumber + 1][];
 
             for (int i = 0; i <= verticesNumber; i++)
             {
                 dist[i] = INF;
                 visited[i] = false;
+                predecessor[i] = -1;
+                dist2D[i] = new int[verticesNumber + 1];
+                for (int j = 0; j <= verticesNumber; j++)
+                {
+                    dist2D[i][j] = INF;
+                }
             }
 
             //priorityQueue = new PriorityQueue<Pair>();
-
-            Console.WriteLine(verticesNumber + " " + edgesNumber);
-
         }
 
         private void createAdjacencyList()
@@ -42,8 +49,10 @@ namespace Cs
             string line;
 
             // Read the file and display it line by line.  
+            //System.IO.StreamReader file =
+            //    new System.IO.StreamReader(@"graph_simple.txt");
             System.IO.StreamReader file =
-                new System.IO.StreamReader(@"graph_simple.txt");
+                new System.IO.StreamReader(@"graph3.txt");
             while ((line = file.ReadLine()) != null)
             {
                 string[] splited = line.Split(' ');
@@ -55,16 +64,11 @@ namespace Cs
                     startingVertex = Int32.Parse(splited[2]);
                     firstLine = false;
 
-                    Console.WriteLine("wczytano: " + verticesNumber + " " + edgesNumber);
-
                     adjacencyList = new List<List<Pair>>(verticesNumber + 1);
-                    Console.WriteLine("size: " + adjacencyList.Capacity);
                     for (int i = 0; i <= verticesNumber; i++)
                     {
-                        Console.WriteLine("i = " + i);
                         adjacencyList.Add(new List<Pair>());
                     }
-                    Console.WriteLine("size: " + adjacencyList.Capacity);
                     continue;
                 }
 
@@ -72,14 +76,11 @@ namespace Cs
                 int secondVertex = Int32.Parse(splited[1]);
                 int edgeWeight = Int32.Parse(splited[2]);
 
-                Console.WriteLine("edge: " + firstVertex + " " + secondVertex + " " + edgeWeight);
                 adjacencyList[firstVertex].Add(new Pair(secondVertex, edgeWeight));
                 adjacencyList[secondVertex].Add(new Pair(firstVertex, edgeWeight));
-
             }
 
             file.Close();
-
         }
 
         public void clearDistAndVisited()
@@ -88,13 +89,17 @@ namespace Cs
             {
                 dist[i] = INF;
                 visited[i] = false;
+                predecessor[i] = -1;
+                for (int j=0; j<=verticesNumber; j++) {
+                    dist2D[i][j] = INF;
+                }
             }
         }
 
         public void dijkstra()
         {
             dist[startingVertex] = 0;  //distance from startingVertex to itself is 0
-            Pair p = new Pair(1, 1);
+         
             priorityQueue.add(new Pair(startingVertex, 0));
 
             while (!priorityQueue.isEmpty())
@@ -110,8 +115,8 @@ namespace Cs
 
                 for (int i = 0; i < adjacencyList[u].Capacity; i++)
                 {
-                    int v = adjacencyList[u][i].second;
-                    int c = adjacencyList[u][i].first;
+                    int v = adjacencyList[u][i].first;
+                    int c = adjacencyList[u][i].second;
 
                     if (dist[v] > dist[u] + c)
                     {
@@ -121,15 +126,58 @@ namespace Cs
                 }
             }
         }
-
-        public void BellmanFord()
+        public void bellmanFord()
         {
-            return;
+            dist[startingVertex] = 0;
+            int v, w;
+            for (int k = 0; k < verticesNumber; k++)
+            {
+                for (int u = 1; u <= verticesNumber; u++)
+                {
+                    for (int i = 0; i < adjacencyList[u].Count; i++)
+                    {
+                        v = adjacencyList[u][i].first;
+                        w = adjacencyList[u][i].second;
+                        if (dist[u] + w < dist[v])
+                        {
+                            dist[v] = dist[u] + w;
+                            predecessor[v] = u;
+                        }
+                    }
+                }
+            }
         }
 
-        public void FloydWarshall()
+        public void floydWarshall()
         {
-            return;
+
+            for (int u = 1; u <= verticesNumber; u++)
+            {
+                for (int i = 0; i < adjacencyList[u].Count; i++)
+                {
+                    int v = adjacencyList[u][i].first;
+                    dist2D[u][v] = adjacencyList[u][i].second;
+                }
+            }
+
+            for (int v = 1; v <= verticesNumber; v++)
+            {
+                dist2D[v][v] = 0;
+            }
+
+            for (int k = 1; k <= verticesNumber; k++)
+            {
+                for (int i = 1; i <= verticesNumber; i++)
+                {
+                    for (int j = 1; j <= verticesNumber; j++)
+                    {
+                        if (dist2D[i][j] > dist2D[i][k] + dist2D[k][j])
+                        {
+                            dist2D[i][j] = dist2D[i][k] + dist2D[k][j];
+                        }
+                    }
+                }
+            }
         }
 
         public void showDist()
@@ -137,6 +185,18 @@ namespace Cs
             for (int i = 1; i <= verticesNumber; i++)
             {
                 Console.WriteLine(dist[i]);
+            }
+        }
+
+        public void showDist2D()
+        {
+            for (int i = 1; i <= verticesNumber; i++)
+            {
+                for (int j = 1; j <= verticesNumber; j++)
+                {
+                    Console.Write(dist2D[i][j] + " ");
+                }
+                Console.WriteLine();
             }
         }
 

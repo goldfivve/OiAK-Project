@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Medallion.Collections;
 
 namespace Cs
 {
@@ -108,11 +109,11 @@ namespace Cs
         public void dijkstra()
         {
             dist[startingVertex] = 0;  //distance from startingVertex to itself is 0
-            priorityQueue.add(new Pair(startingVertex, 0));
+            priorityQueue.Enqueue(new Pair(startingVertex, 0));
 
-            while (!priorityQueue.isEmpty())
+            while (priorityQueue.Count == 0)
             {
-                int u = (priorityQueue.poll()).second;
+                int u = (priorityQueue.Dequeue()).second;
 
                 if (visited[u])
                 {
@@ -129,7 +130,7 @@ namespace Cs
                     if (dist[v] > dist[u] + c)
                     {
                         dist[v] = dist[u] + c;
-                        priorityQueue.add(new Pair(v, dist[v]));
+                        priorityQueue.Enqueue(new Pair(v, dist[v]));
                     }
                 }
             }

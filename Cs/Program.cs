@@ -8,9 +8,6 @@ namespace Cs
         static void Main(string[] args)
         {
             Stopwatch sw;
-            sw = Stopwatch.StartNew();
-            sw.Stop();
-            Console.WriteLine("Elapsed time: {0}ms", sw.Elapsed.TotalMilliseconds);
 
             Console.WriteLine("Graph List");
 
@@ -23,7 +20,7 @@ namespace Cs
                 graphList.clearDistAndVisited();
 
                 sw = Stopwatch.StartNew();
-                //graphList.dijkstra();
+                graphList.dijkstra();
                 sw.Stop();
                 var elapsedTime = sw.Elapsed.TotalMilliseconds;
                 Console.WriteLine("Elapsed time: " + elapsedTime);
@@ -64,7 +61,7 @@ namespace Cs
                 graphMatrix.clearDistAndVisited();
 
                 sw = Stopwatch.StartNew();
-                //graphMatrix.dijkstra();
+                graphMatrix.dijkstra();
                 sw.Stop();
                 var elapsedTime = sw.Elapsed.TotalMilliseconds;
                 Console.WriteLine("Elapsed time: " + elapsedTime);

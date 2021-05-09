@@ -1,3 +1,5 @@
+package src;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -11,6 +13,8 @@ public class GraphMatrix {
 
     int[] dist;
     boolean[] visited;
+    int[] predecessor;
+    int[][] dist2D;
 
     PriorityQueue<Pair> priorityQueue;
 
@@ -21,10 +25,16 @@ public class GraphMatrix {
 
         dist = new int[verticesNumber + 1];
         visited = new boolean[verticesNumber + 1];
+        predecessor = new int[verticesNumber+1];
+        dist2D = new int[verticesNumber+1][verticesNumber+1];
 
         for (int i = 0; i <= verticesNumber; i++) {
             dist[i] = INF;
             visited[i] = false;
+            predecessor[i] = -1;
+            for(int j=0; j<=verticesNumber; j++) {
+                dist2D[i][j] = INF;
+            }
         }
 
         priorityQueue = new
@@ -36,7 +46,8 @@ public class GraphMatrix {
 
     private void createAdjacencyMatrix() {
         try {
-            File myObj = new File("graph_simple.txt");
+            //File myObj = new File("graph_simple.txt");
+            File myObj = new File("graph3.txt");
             Scanner myReader = new Scanner(myObj);
 
             boolean firstLine = true;
@@ -113,9 +124,61 @@ public class GraphMatrix {
         }
     }
 
+    public void bellmanFord() {
+        dist[startingVertex] = 0;
+        int w;
+        for (int k = 0; k < verticesNumber; k++) {
+            for (int u = 1; u <= verticesNumber; u++) {
+                for (int v = 1; v <= verticesNumber; v++) {
+                    w = adjacencyMatrix.get(u).get(v);
+                    if (w == INF) {
+                        continue;
+                    }
+                    if (dist[u] + w < dist[v]) {
+                        dist[v] = dist[u] + w;
+                        predecessor[v] = u;
+                    }
+                }
+            }
+        }
+    }
+
+    public void floydWarshall() {
+
+        for (int u = 1; u <= verticesNumber; u++) {
+            for (int v = 1; v <= verticesNumber; v++) {
+                dist2D[u][v] = adjacencyMatrix.get(u).get(v);
+            }
+        }
+
+        for (int v = 1; v <= verticesNumber; v++) {
+            dist2D[v][v] = 0;
+        }
+
+        for (int k = 1; k <= verticesNumber; k++) {
+            for (int i = 1; i <= verticesNumber; i++) {
+                for (int j = 1; j <= verticesNumber; j++) {
+                    if (dist2D[i][j] > dist2D[i][k] + dist2D[k][j]) {
+                        dist2D[i][j] = dist2D[i][k] + dist2D[k][j];
+                    }
+                }
+            }
+        }
+    }
+
     public void showDist() {
         for (int i = 1; i <= verticesNumber; i++) {
-            System.out.println(dist[i]);
+            System.out.print(dist[i] + " ");
+        }
+        System.out.println();
+    }
+
+    public void showDist2D() {
+        for(int i=1; i<=verticesNumber; i++) {
+            for(int j=1; j<=verticesNumber; j++) {
+                System.out.print(dist2D[i][j] + " ");
+            }
+            System.out.println();
         }
     }
 
@@ -123,6 +186,11 @@ public class GraphMatrix {
         for (int i = 0; i <= verticesNumber; i++) {
             dist[i] = INF;
             visited[i] = false;
+            predecessor[i] = -1;
+            for(int j=0; j<=verticesNumber; j++) {
+                dist2D[i][j] = INF;
+            }
+
         }
     }
 

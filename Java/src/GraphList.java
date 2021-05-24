@@ -19,10 +19,10 @@ public class GraphList {
 
     PriorityQueue<Pair> priorityQueue;
 
-    GraphList() {
+    GraphList(int size) {
         priorityQueue = new PriorityQueue<Pair>();
 
-        createAdjacencyList();
+        createAdjacencyList(size);
 
         dist = new int[verticesNumber+1];
         visited = new boolean[verticesNumber+1];
@@ -41,14 +41,18 @@ public class GraphList {
         priorityQueue = new
                 PriorityQueue<Pair>(edgesNumber, new PairComparator());
 
-        System.out.println(verticesNumber + " " + edgesNumber);
+        //System.out.println(verticesNumber + " " + edgesNumber);
 
     }
 
-    private void createAdjacencyList() {
+    private void createAdjacencyList(int size) {
         try {
             //File myObj = new File("graph_simple.txt");
-            File myObj = new File("graph3.txt");
+            //File myObj = new File("graph3.txt");
+
+            String name = "graph_" + size + ".txt";
+            File myObj = new File(name);
+
             Scanner myReader = new Scanner(myObj);
 
             boolean firstLine = true;

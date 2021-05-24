@@ -1,9 +1,96 @@
 package src;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Graph List");
+
+        int[] sizes = {500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500};
+
+        Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+        String trash;
+
+        for(int i=0; i<9; i++) {
+            System.out.println("utworz (wpisz jakis znak i enter)");
+            trash = myObj.nextLine();  // Read user input
+
+            GraphList graphList = new GraphList(sizes[i]);
+            graphList.clearDistAndVisited();
+
+            System.out.println("lista - dijkstra " + sizes[i] + " (wpisz jakis znak i enter)");
+            trash = myObj.nextLine();  // Read user input
+
+            graphList.dijkstra();
+
+        }
+
+        for(int i=0; i<9; i++) {
+            System.out.println("utworz (wpisz jakis znak i enter)");
+            trash = myObj.nextLine();  // Read user input
+
+            GraphList graphList = new GraphList(sizes[i]);
+            graphList.clearDistAndVisited();
+
+            System.out.println("lista - bellmanFord " + sizes[i] + " (wpisz jakis znak i enter)");
+            trash = myObj.nextLine();  // Read user input
+
+            graphList.bellmanFord();
+        }
+
+        for(int i=0; i<9; i++) {
+            System.out.println("utworz (wpisz jakis znak i enter)");
+            trash = myObj.nextLine();  // Read user input
+
+            GraphList graphList = new GraphList(sizes[i]);
+            graphList.clearDistAndVisited();
+
+            System.out.println("lista - floydWarshall " + sizes[i] + " (wpisz jakis znak i enter)");
+            trash = myObj.nextLine();  // Read user input
+
+            graphList.floydWarshall();
+        }
+
+        for(int i=0; i<9; i++) {
+            System.out.println("utworz (wpisz jakis znak i enter)");
+            trash = myObj.nextLine();  // Read user input
+
+            GraphMatrix graphMatrix = new GraphMatrix(sizes[i]);
+            graphMatrix.clearDistAndVisited();
+
+            System.out.println("macierz - dijkstra " + sizes[i] + " (wpisz jakis znak i enter)");
+            trash = myObj.nextLine();  // Read user input
+
+            graphMatrix.dijkstra();
+        }
+
+        for(int i=0; i<9; i++) {
+            System.out.println("utworz (wpisz jakis znak i enter)");
+            trash = myObj.nextLine();  // Read user input
+
+            GraphMatrix graphMatrix = new GraphMatrix(sizes[i]);
+            graphMatrix.clearDistAndVisited();
+
+            System.out.println("macierz - bellmanFord " + sizes[i] + " (wpisz jakis znak i enter)");
+            trash = myObj.nextLine();  // Read user input
+
+            graphMatrix.bellmanFord();
+        }
+
+        for(int i=0; i<9; i++) {
+            System.out.println("utworz (wpisz jakis znak i enter)");
+            trash = myObj.nextLine();  // Read user input
+
+            GraphMatrix graphMatrix = new GraphMatrix(sizes[i]);
+            graphMatrix.clearDistAndVisited();
+
+            System.out.println("macierz - floydWarshall " + sizes[i] + " (wpisz jakis znak i enter)");
+            trash = myObj.nextLine();  // Read user input
+
+            graphMatrix.floydWarshall();
+        }
+
+
+        /*        System.out.println("Graph List");
 
         GraphList graphList = new GraphList();
 //        graphList.showAdjacencyList();
@@ -71,7 +158,7 @@ public class Main {
             graphMatrix.floydWarshall();
             long elapsedTime = System.nanoTime() - startTime;
             System.out.println("Elapsed time: " + elapsedTime);
-        }
+        }*/
 
     }
 }

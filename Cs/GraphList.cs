@@ -18,9 +18,9 @@ namespace Cs
 
         PriorityQueue<Pair> priorityQueue;
 
-        public GraphList()
+        public GraphList(int size)
         {
-            createAdjacencyList();
+            createAdjacencyList(size);
 
             dist = new int[verticesNumber + 1];
             visited = new bool[verticesNumber + 1];
@@ -42,7 +42,7 @@ namespace Cs
             priorityQueue = new PriorityQueue<Pair>();
         }
 
-        private void createAdjacencyList()
+        private void createAdjacencyList(int size)
         {
 
             bool firstLine = true;
@@ -51,8 +51,10 @@ namespace Cs
             // Read the file and display it line by line.  
             //System.IO.StreamReader file =
             //    new System.IO.StreamReader(@"graph_simple.txt");
+            String name = "graph_" + size + ".txt";
+
             System.IO.StreamReader file =
-                new System.IO.StreamReader(@"graph3.txt");
+                            new System.IO.StreamReader(@name);
             while ((line = file.ReadLine()) != null)
             {
                 string[] splited = line.Split(' ');

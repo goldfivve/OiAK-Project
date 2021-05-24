@@ -445,166 +445,75 @@ void measureFloydWarshallList() {
 
 int main() {
     srand(time(nullptr));
-    int sizes[3] = {1750, 2000, 2500};
-    for(int i=0; i<3; i++){
-        createRandomGraph(sizes[i]);
-    }
+    int sizes[9] = {500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500};
 
     char c;
 
-    for(int i=0; i<3; i++) {
-        cout << "utworz\n";
+    for(int i=0; i<9; i++) {
+        cout << "utworz (wpisz jakis znak i enter)\n";
         cin >> c;
         clearDistAndVisited();
         createAdjacencyList(sizes[i]);
-        cout << "lista - dijkstra " << to_string(sizes[i]) << endl;
+        cout << "lista - dijkstra " << to_string(sizes[i]) << " (wpisz jakis znak i enter)" << endl;
         cin >> c;
 
         dijkstraOnAdjacencyList();
     }
 
-    for(int i=0; i<3; i++) {
-        cout << "utworz\n";
+    for(int i=0; i<9; i++) {
+        cout << "utworz (wpisz jakis znak i enter)\n";
         cin >> c;
         clearDistAndVisited();
         createAdjacencyList(sizes[i]);
-        cout << "lista - bellmanFord " << to_string(sizes[i]) << endl;
+        cout << "lista - bellmanFord " << to_string(sizes[i]) << " (wpisz jakis znak i enter)" << endl;
         cin >> c;
 
         bellmanFordOnAdjacencyList();
     }
 
-    for(int i=0; i<3; i++) {
-        cout << "utworz\n";
+    for(int i=0; i<9; i++) {
+        cout << "utworz (wpisz jakis znak i enter)\n";
         cin >> c;
         clearDistAndVisited();
         createAdjacencyList(sizes[i]);
-        cout << "lista - floydWarshall " << to_string(sizes[i]) << endl;
+        cout << "lista - floydWarshall " << to_string(sizes[i]) << " (wpisz jakis znak i enter)" << endl;
         cin >> c;
 
         floydWarshallOnAdjacencyList();
     }
 
-    for(int i=0; i<3; i++) {
-        cout << "utworz\n";
+    for(int i=0; i<9; i++) {
+        cout << "utworz (wpisz jakis znak i enter)\n";
         cin >> c;
         clearDistAndVisited();
         createAdjacencyMatrix(sizes[i]);
-        cout << "macierz - dijkstra " << to_string(sizes[i]) << endl;
+        cout << "macierz - dijkstra " << to_string(sizes[i]) << " (wpisz jakis znak i enter)" << endl;
         cin >> c;
 
         dijkstraOnAdjacencyMatrix();
     }
 
-    for(int i=0; i<3; i++) {
-        cout << "utworz\n";
+    for(int i=0; i<9; i++) {
+        cout << "utworz (wpisz jakis znak i enter)\n";
         cin >> c;
         clearDistAndVisited();
         createAdjacencyMatrix(sizes[i]);
-        cout << "macierz - bellmanFord " << to_string(sizes[i]) << endl;
+        cout << "macierz - bellmanFord " << to_string(sizes[i]) << " (wpisz jakis znak i enter)" << endl;
         cin >> c;
 
         bellmanFordOnAdjacencyMatrix();
     }
 
-    for(int i=0; i<3; i++) {
-        cout << "utworz\n";
+    for(int i=0; i<9; i++) {
+        cout << "utworz (wpisz jakis znak i enter)\n";
         cin >> c;
         clearDistAndVisited();
         createAdjacencyMatrix(sizes[i]);
-        cout << "macierz - floydWarshall " << to_string(sizes[i]) << endl;
+        cout << "macierz - floydWarshall " << to_string(sizes[i]) << " (wpisz jakis znak i enter)" << endl;
         cin >> c;
 
         floydWarshallOnAdjacencyMatrix();
     }
-
-    //createAdjacencyList();
-/*
-
-    cout << "Adjacency List:\n";
-    cout << "Dijkstra: \n";
-    for (int i = 0; i < 10; i++) {
-        clearDistAndVisited();
-
-        auto start = chrono::high_resolution_clock::now();
-        dijkstraOnAdjacencyList();
-        auto end = chrono::high_resolution_clock::now();
-        chrono::duration<double, std::milli> elapsed_seconds = end - start;
-        cout << "Elapsed time: " << elapsed_seconds.count() << " ms\n";
-    }
-
-    cout << "Bellman-Ford: \n";
-    for (int i = 0; i < 10; i++) {
-        clearDistAndVisited();
-
-        auto start = chrono::high_resolution_clock::now();
-        bellmanFordOnAdjacencyList();
-        auto end = chrono::high_resolution_clock::now();
-        chrono::duration<double, std::milli> elapsed_seconds = end - start;
-        cout << "Elapsed time: " << elapsed_seconds.count() << " ms\n";
-    }
-
-    cout << "FLoyd-Warshall: \n";
-    for (int i = 0; i < 10; i++) {
-        clearDistAndVisited();
-
-        auto start = chrono::high_resolution_clock::now();
-        floydWarshallOnAdjacencyList();
-        auto end = chrono::high_resolution_clock::now();
-        chrono::duration<double, std::milli> elapsed_seconds = end - start;
-        cout << "Elapsed time: " << elapsed_seconds.count() << " ms\n";
-    }
-
-
-    cout << endl;
-    //createAdjacencyMatrix();
-
-    for (int i = 0; i < 10; i++) {
-        clearDistAndVisited();
-
-        auto start = std::chrono::high_resolution_clock::now();
-        dijkstraOnAdjacencyMatrix();
-        auto end = std::chrono::high_resolution_clock::now();
-        chrono::duration<double, std::milli> elapsed_seconds = end - start;
-        cout << "Elapsed time for Adjacency Matrix: " << elapsed_seconds.count() << " ms\n";
-    }
-
-    cout << "Bellman-Ford: \n";
-    for (int i = 0; i < 10; i++) {
-        clearDistAndVisited();
-
-        auto start = chrono::high_resolution_clock::now();
-        bellmanFordOnAdjacencyMatrix();
-        auto end = chrono::high_resolution_clock::now();
-        chrono::duration<double, std::milli> elapsed_seconds = end - start;
-        cout << "Elapsed time: " << elapsed_seconds.count() << " ms\n";
-    }
-
-    cout << "FLoyd-Warshall: \n";
-    for (int i = 0; i < 10; i++) {
-        clearDistAndVisited();
-
-        auto start = chrono::high_resolution_clock::now();
-        floydWarshallOnAdjacencyMatrix();
-        auto end = chrono::high_resolution_clock::now();
-        chrono::duration<double, std::milli> elapsed_seconds = end - start;
-        cout << "Elapsed time: " << elapsed_seconds.count() << " ms\n";
-    }
-*/
-
+    
     return 0;
 }
-
-/*
- Simple graph:
-
- 5 8 1
- 1 2 2
- 1 3 1
- 1 4 7
- 1 5 5
- 2 4 3
- 3 4 2
- 3 5 3
- 4 5 1
-*/

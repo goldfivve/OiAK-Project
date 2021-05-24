@@ -32,11 +32,13 @@ vector<int> predecessor;
 vector<vector<int>> dist2D;
 
 priority_queue<vertexPair, vector<vertexPair>, greater<vertexPair> > Q; //priority queue for getting the smallest weight
-
-void createAdjacencyList(int size, int index) {
     int firstVertex, secondVertex, edgeWeight;
     string line;
-    string name = "graph" + to_string(size) + "\\graph_" + to_string(size) + "_" + to_string(index) + ".txt";
+
+void createAdjacencyList(int size) {
+    int firstVertex, secondVertex, edgeWeight;
+    string line;
+    string name = "graph_" + to_string(size) + ".txt";
 
     ifstream file(name);
     //ifstream file("graph_simple.txt");
@@ -77,11 +79,9 @@ void createAdjacencyList(int size, int index) {
     }
 }
 
-void createAdjacencyMatrix(int size, int index) {
-    int firstVertex, secondVertex, edgeWeight;
-    string line;
+void createAdjacencyMatrix(int size) {
 
-    string name = "graph" + to_string(size) + "\\graph_" + to_string(size) + "_" + to_string(index) + ".txt";
+    string name = "graph_" + to_string(size) + ".txt";
 
     ifstream file(name);
 
@@ -279,8 +279,8 @@ void clearDistAndVisited() {
     }
 }
 
-void createRandomGraph(int size, int index) {
-    string name = R"(C:\Users\marta\Documents\Repos\OiAK-Project\C++\src\graph)" + to_string(size) + "\\graph_" + to_string(size) + "_" + to_string(index) + ".txt";
+void createRandomGraph(int size) {
+    string name = "graph_" + to_string(size) + ".txt";
     ofstream myfile(name);
     if (myfile.is_open()) {
         int n, m, s, counter, maxEdges;
@@ -445,28 +445,78 @@ void measureFloydWarshallList() {
 
 int main() {
     srand(time(nullptr));
-    int sizes[10] = {50, 100, 150, 200, 250, 300, 350, 400, 450, 500};
-//    for(int i=0; i<10; i++) {
-//        for(int j=0; j<100; j++) {
-//            createRandomGraph(sizes[i], j);
-//        }
-//    }
-
-    for(int i=0; i<10; i++) {
-        for(int j=0; j<100; j++) {
-            cout<<i*100+j<<" ";
-            createAdjacencyList(sizes[i], j);
-            measureDijkstraList();
-            measureBellmanFordList();
-            measureFloydWarshallList();
-
-            createAdjacencyMatrix(sizes[i], j);
-            measureDijkstraMatrix();
-            measureBellmanFordMatrix();
-            measureFloydWarshallMatrix();
-        }
+    int sizes[3] = {1750, 2000, 2500};
+    for(int i=0; i<3; i++){
+        createRandomGraph(sizes[i]);
     }
 
+    char c;
+
+    for(int i=0; i<3; i++) {
+        cout << "utworz\n";
+        cin >> c;
+        clearDistAndVisited();
+        createAdjacencyList(sizes[i]);
+        cout << "lista - dijkstra " << to_string(sizes[i]) << endl;
+        cin >> c;
+
+        dijkstraOnAdjacencyList();
+    }
+
+    for(int i=0; i<3; i++) {
+        cout << "utworz\n";
+        cin >> c;
+        clearDistAndVisited();
+        createAdjacencyList(sizes[i]);
+        cout << "lista - bellmanFord " << to_string(sizes[i]) << endl;
+        cin >> c;
+
+        bellmanFordOnAdjacencyList();
+    }
+
+    for(int i=0; i<3; i++) {
+        cout << "utworz\n";
+        cin >> c;
+        clearDistAndVisited();
+        createAdjacencyList(sizes[i]);
+        cout << "lista - floydWarshall " << to_string(sizes[i]) << endl;
+        cin >> c;
+
+        floydWarshallOnAdjacencyList();
+    }
+
+    for(int i=0; i<3; i++) {
+        cout << "utworz\n";
+        cin >> c;
+        clearDistAndVisited();
+        createAdjacencyMatrix(sizes[i]);
+        cout << "macierz - dijkstra " << to_string(sizes[i]) << endl;
+        cin >> c;
+
+        dijkstraOnAdjacencyMatrix();
+    }
+
+    for(int i=0; i<3; i++) {
+        cout << "utworz\n";
+        cin >> c;
+        clearDistAndVisited();
+        createAdjacencyMatrix(sizes[i]);
+        cout << "macierz - bellmanFord " << to_string(sizes[i]) << endl;
+        cin >> c;
+
+        bellmanFordOnAdjacencyMatrix();
+    }
+
+    for(int i=0; i<3; i++) {
+        cout << "utworz\n";
+        cin >> c;
+        clearDistAndVisited();
+        createAdjacencyMatrix(sizes[i]);
+        cout << "macierz - floydWarshall " << to_string(sizes[i]) << endl;
+        cin >> c;
+
+        floydWarshallOnAdjacencyMatrix();
+    }
 
     //createAdjacencyList();
 /*

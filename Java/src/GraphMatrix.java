@@ -1,5 +1,6 @@
 package src;
 
+import javax.xml.namespace.QName;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -18,10 +19,10 @@ public class GraphMatrix {
 
     PriorityQueue<Pair> priorityQueue;
 
-    GraphMatrix() {
+    GraphMatrix(int size) {
         priorityQueue = new PriorityQueue<Pair>();
 
-        createAdjacencyMatrix();
+        createAdjacencyMatrix(size);
 
         dist = new int[verticesNumber + 1];
         visited = new boolean[verticesNumber + 1];
@@ -40,14 +41,16 @@ public class GraphMatrix {
         priorityQueue = new
                 PriorityQueue<Pair>(edgesNumber, new PairComparator());
 
-        System.out.println(verticesNumber + " " + edgesNumber);
+        //System.out.println(verticesNumber + " " + edgesNumber);
 
     }
 
-    private void createAdjacencyMatrix() {
+    private void createAdjacencyMatrix(int size) {
         try {
             //File myObj = new File("graph_simple.txt");
-            File myObj = new File("graph3.txt");
+            //File myObj = new File("graph3.txt");
+            String name = "graph_" + size + ".txt";
+            File myObj = new File(name);
             Scanner myReader = new Scanner(myObj);
 
             boolean firstLine = true;

@@ -95,9 +95,11 @@ def dijkstra_on_adjacency_list(graph, vertices, start):
         len(graph[min_cost_index])
 
         for i in range(len(graph[min_cost_index])):
+            minimal_cost = d[graph[min_cost_index][i][0] - 1]
+            actual_cost = d[min_cost_index] + graph[min_cost_index][i][1]
             if graph[min_cost_index][i][0] - 1 in q:
-                if d[graph[min_cost_index][i][0] - 1] > d[min_cost_index] + graph[min_cost_index][i][1]:
-                    d[graph[min_cost_index][i][0] - 1] = d[min_cost_index] + graph[min_cost_index][i][1]
+                if minimal_cost > actual_cost:
+                    minimal_cost = actual_cost
                     p[graph[min_cost_index][i][0] - 1] = min_cost_index
 
 
@@ -197,32 +199,48 @@ def floyd_warshall_on_adjacency_list(graph, vertices):
 
 
 def time_measure(function, *args, test_number=1):
-    sum = 0
+    time_sum = 0
 
-    for i in range(0, test_number):
-        start = perf_counter_ns()
-        function(*args)
-        end = perf_counter_ns()
-        sum = sum + (end - start)
+    for i in range(0, 10):
+        for j in range(0, test_number):
+            start = perf_counter_ns()
+            function(*args)
+            end = perf_counter_ns()
+            time_sum = time_sum + (end - start)
 
-    return sum / test_number
+        print(time_sum / test_number, " ns")
+        time_sum = 0
+
+
+def wait():
+    input("Press any key to start the algorithm...")
 
 
 if __name__ == '__main__':
     matrix_graph_list = []
 
-    first_line_int = read_file("graph_simple.txt", matrix_graph_list)
+    first_line_int = read_file("graph_1500.txt", matrix_graph_list)
     vertex_number = first_line_int[0]
     edge_number = first_line_int[1]
     start_vertex = first_line_int[2]
 
     graph_matrix = create_adjacency_matrix(matrix_graph_list, vertex_number, edge_number)
-    graph_list = create_adjacency_list(matrix_graph_list, vertex_number, edge_number)
+    # graph_list = create_adjacency_list(matrix_graph_list, vertex_number, edge_number)
 
-    time_measure(dijkstra_on_adjacency_matrix, graph_matrix, vertex_number, start_vertex - 1, test_number=1000)
-    time_measure(bellman_ford_on_adjacency_matrix, graph_matrix, vertex_number, start_vertex - 1, test_number=1000)
-    time_measure(floyd_warshall_on_adjacency_matrix, graph_matrix, vertex_number, test_number=1000)
+    wait()
 
-    time_measure(dijkstra_on_adjacency_list, graph_list, vertex_number, start_vertex - 1, test_number=1000)
-    time_measure(bellman_ford_on_adjacency_list, graph_list, vertex_number, start_vertex - 1, test_number=1000)
-    time_measure(floyd_warshall_on_adjacency_list, graph_list, vertex_number, test_number=1000)
+    dijkstra_on_adjacency_matrix(graph_matrix, vertex_number, start_vertex)
+    # bellman_ford_on_adjacency_matrix(graph_matrix, vertex_number, start_vertex)
+    # floyd_warshall_on_adjacency_matrix(graph_matrix, vertex_number)
+
+    # dijkstra_on_adjacency_list(graph_matrix, vertex_number, start_vertex)
+    # bellman_ford_on_adjacency_list(graph_list, vertex_number, start_vertex)
+    # floyd_warshall_on_adjacency_list(graph_list, vertex_number)
+
+    # time_measure(dijkstra_on_adjacency_matrix, graph_matrix, vertex_number, start_vertex - 1, test_number=1000)
+    # time_measure(bellman_ford_on_adjacency_matrix, graph_matrix, vertex_number, start_vertex - 1, test_number=1000)
+    # time_measure(floyd_warshall_on_adjacency_matrix, graph_matrix, vertex_number, test_number=1000)
+
+    # time_measure(dijkstra_on_adjacency_list, graph_list, vertex_number, start_vertex - 1, test_number=1000)
+    # time_measure(bellman_ford_on_adjacency_list, graph_list, vertex_number, start_vertex - 1, test_number=1000)
+    # time_measure(floyd_warshall_on_adjacency_list, graph_list, vertex_number, test_number=1000)

@@ -39,7 +39,7 @@ namespace Cs
                 }
             }
 
-            //priorityQueue = new PriorityQueue<Pair>();
+            priorityQueue = new PriorityQueue<Pair>();
         }
 
         private void createAdjacencyMatrix(int size)

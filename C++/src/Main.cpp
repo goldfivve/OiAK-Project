@@ -33,11 +33,12 @@ vector<vector<int>> dist2D;
 
 priority_queue<vertexPair, vector<vertexPair>, greater<vertexPair> > Q; //priority queue for getting the smallest weight
 
-void createAdjacencyList() {
+void createAdjacencyList(int size, int index) {
     int firstVertex, secondVertex, edgeWeight;
     string line;
+    string name = "graph" + to_string(size) + "\\graph_" + to_string(size) + "_" + to_string(index) + ".txt";
 
-    ifstream file("graph3.txt");
+    ifstream file(name);
     //ifstream file("graph_simple.txt");
 
     getline(file, line);
@@ -76,11 +77,14 @@ void createAdjacencyList() {
     }
 }
 
-void createAdjacencyMatrix() {
+void createAdjacencyMatrix(int size, int index) {
     int firstVertex, secondVertex, edgeWeight;
     string line;
 
-    ifstream file("graph3.txt");
+    string name = "graph" + to_string(size) + "\\graph_" + to_string(size) + "_" + to_string(index) + ".txt";
+
+    ifstream file(name);
+
     //ifstream file("graph_simple.txt");
 
     getline(file, line);
@@ -275,14 +279,14 @@ void clearDistAndVisited() {
     }
 }
 
-void createRandomGraph() {
-    ofstream myfile("graph3.txt");
+void createRandomGraph(int size, int index) {
+    string name = R"(C:\Users\marta\Documents\Repos\OiAK-Project\C++\src\graph)" + to_string(size) + "\\graph_" + to_string(size) + "_" + to_string(index) + ".txt";
+    ofstream myfile(name);
     if (myfile.is_open()) {
-        srand(time(nullptr));
         int n, m, s, counter, maxEdges;
-        n = 2000;
-        maxEdges = (n * (n - 1) / 2) / 3;
-        m = rand() % maxEdges + 1;
+        n = size;
+        maxEdges = (n * (n - 1) / 2);
+        m = int(maxEdges * 0.90) + 1;
         counter = m;
         s = 1;
         myfile << n << " " << m << " " << s << endl;
@@ -314,12 +318,158 @@ void createRandomGraph() {
     }
 }
 
+void measureDijkstraMatrix() {
+
+    string name = "graph" + to_string(verticesNumber) + "\\matrix-dijkstra-" + to_string(verticesNumber) + ".txt";
+    ofstream myfile(name, std::ios_base::app);
+
+    if (myfile.is_open()) {
+
+        auto start = chrono::high_resolution_clock::now();
+        dijkstraOnAdjacencyMatrix();
+        auto end = chrono::high_resolution_clock::now();
+        chrono::duration<double, std::nano> elapsed_seconds = end - start;
+
+        myfile << fixed << elapsed_seconds.count();
+        myfile << endl;
+
+        myfile.close();
+    } else {
+        printf("Doesn't work...\n");
+    }
+}
+
+void measureDijkstraList() {
+
+    string name = "graph" + to_string(verticesNumber) + "\\list-dijkstra-" + to_string(verticesNumber) + ".txt";
+    ofstream myfile(name, std::ios_base::app);
+
+    if (myfile.is_open()) {
+
+        auto start = chrono::high_resolution_clock::now();
+        dijkstraOnAdjacencyList();
+        auto end = chrono::high_resolution_clock::now();
+        chrono::duration<double, std::nano> elapsed_seconds = end - start;
+
+        myfile << fixed << elapsed_seconds.count();
+        myfile << endl;
+
+        myfile.close();
+    } else {
+        printf("Doesn't work...\n");
+    }
+}
+
+void measureBellmanFordMatrix() {
+    string name = "graph" + to_string(verticesNumber) + "\\matrix-bellmanFord-" + to_string(verticesNumber) + ".txt";
+    ofstream myfile(name, std::ios_base::app);
+
+    if (myfile.is_open()) {
+
+        auto start = chrono::high_resolution_clock::now();
+        bellmanFordOnAdjacencyMatrix();
+        auto end = chrono::high_resolution_clock::now();
+        chrono::duration<double, std::nano> elapsed_seconds = end - start;
+
+        myfile << fixed << elapsed_seconds.count();
+        myfile << endl;
+
+        myfile.close();
+    } else {
+        printf("Doesn't work...\n");
+    }
+}
+
+void measureBellmanFordList() {
+    string name = "graph" + to_string(verticesNumber) + "\\list-bellmanFord-" + to_string(verticesNumber) + ".txt";
+    ofstream myfile(name, std::ios_base::app);
+
+    if (myfile.is_open()) {
+
+        auto start = chrono::high_resolution_clock::now();
+        bellmanFordOnAdjacencyList();
+        auto end = chrono::high_resolution_clock::now();
+        chrono::duration<double, std::nano> elapsed_seconds = end - start;
+
+        myfile << fixed << elapsed_seconds.count();
+        myfile << endl;
+
+        myfile.close();
+    } else {
+        printf("Doesn't work...\n");
+    }
+}
+
+void measureFloydWarshallMatrix() {
+    string name = "graph" + to_string(verticesNumber) + "\\matrix-floydWarshall-" + to_string(verticesNumber) + ".txt";
+    ofstream myfile(name, std::ios_base::app);
+
+    if (myfile.is_open()) {
+
+        auto start = chrono::high_resolution_clock::now();
+        floydWarshallOnAdjacencyMatrix();
+        auto end = chrono::high_resolution_clock::now();
+        chrono::duration<double, std::nano> elapsed_seconds = end - start;
+
+        myfile << fixed << elapsed_seconds.count();
+        myfile << endl;
+
+        myfile.close();
+    } else {
+        printf("Doesn't work...\n");
+    }
+}
+
+
+void measureFloydWarshallList() {
+    string name = "graph" + to_string(verticesNumber) + "\\list-floydWarshall-" + to_string(verticesNumber) + ".txt";
+    ofstream myfile(name, std::ios_base::app);
+
+    if (myfile.is_open()) {
+
+        auto start = chrono::high_resolution_clock::now();
+        floydWarshallOnAdjacencyList();
+        auto end = chrono::high_resolution_clock::now();
+        chrono::duration<double, std::nano> elapsed_seconds = end - start;
+
+        myfile << fixed << elapsed_seconds.count();
+        myfile << endl;
+
+        myfile.close();
+    } else {
+        printf("Doesn't work...\n");
+    }
+}
+
+
 
 int main() {
+    srand(time(nullptr));
+    int sizes[10] = {50, 100, 150, 200, 250, 300, 350, 400, 450, 500};
+//    for(int i=0; i<10; i++) {
+//        for(int j=0; j<100; j++) {
+//            createRandomGraph(sizes[i], j);
+//        }
+//    }
 
-    createRandomGraph();
+    for(int i=0; i<10; i++) {
+        for(int j=0; j<100; j++) {
+            cout<<i*100+j<<" ";
+            createAdjacencyList(sizes[i], j);
+            measureDijkstraList();
+            measureBellmanFordList();
+            measureFloydWarshallList();
 
-    createAdjacencyList();
+            createAdjacencyMatrix(sizes[i], j);
+            measureDijkstraMatrix();
+            measureBellmanFordMatrix();
+            measureFloydWarshallMatrix();
+        }
+    }
+
+
+    //createAdjacencyList();
+/*
 
     cout << "Adjacency List:\n";
     cout << "Dijkstra: \n";
@@ -357,7 +507,7 @@ int main() {
 
 
     cout << endl;
-    createAdjacencyMatrix();
+    //createAdjacencyMatrix();
 
     for (int i = 0; i < 10; i++) {
         clearDistAndVisited();
@@ -390,61 +540,7 @@ int main() {
         chrono::duration<double, std::milli> elapsed_seconds = end - start;
         cout << "Elapsed time: " << elapsed_seconds.count() << " ms\n";
     }
-
-
-//    cout << verticesNumber << endl;
-//    clearDistAndVisited();
-//    createAdjacencyList();
-//
-//    bellmanFordOnAdjacencyList();
-//    for (int i = 1; i < dist.size(); i++) {
-//        cout << dist[i] << " ";
-//    }
-//    cout << endl;
-//    for (int i = 1; i < predecessor.size(); i++) {
-//        cout << predecessor[i] << " ";
-//    }
-//    cout << endl;
-//
-//    cout << endl;
-//    clearDistAndVisited();
-//    createAdjacencyMatrix();
-//
-//    bellmanFordOnAdjacencyMatrix();
-//    for (int i = 1; i < dist.size(); i++) {
-//        cout << dist[i] << " ";
-//    }
-//    cout << endl;
-//    for (int i = 1; i < predecessor.size(); i++) {
-//        cout << predecessor[i] << " ";
-//    }
-//    cout << endl;
-//
-//    cout << endl;
-//    clearDistAndVisited();
-//    createAdjacencyList();
-//
-//    floydWarshallOnAdjacencyList();
-//    for (int i = 1; i < dist2D.size(); i++) {
-//        for (int j = 1; j < dist2D[i].size(); j++) {
-//            cout << dist2D[i][j] << " ";
-//        }
-//        cout << endl;
-//    }
-//    cout << endl;
-//
-//    cout << endl;
-//    clearDistAndVisited();
-//    createAdjacencyMatrix();
-//
-//    floydWarshallOnAdjacencyMatrix();
-//    for (int i = 1; i < dist2D.size(); i++) {
-//        for (int j = 1; j < dist2D[i].size(); j++) {
-//            cout << dist2D[i][j] << " ";
-//        }
-//        cout << endl;
-//    }
-//    cout << endl;
+*/
 
     return 0;
 }

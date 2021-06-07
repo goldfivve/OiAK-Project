@@ -70,7 +70,7 @@ namespace Cs
 
                     for (int i = 0; i <= verticesNumber; i++)
                     {
-                        adjacencyMatrix.Add(new List<int>(verticesNumber + 1));
+                        adjacencyMatrix.Add(new List<int>());
                     }
                     continue;
                 }

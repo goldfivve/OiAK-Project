@@ -79,7 +79,7 @@ namespace Cs
                 {
                     for (int j = 0; j <= verticesNumber; j++)
                     {
-                        adjacencyMatrix[i].Add(INF);
+                        adjacencyMatrix[i].Add(200);
                     }
                 }
 

@@ -51,7 +51,7 @@ namespace Cs
             // Read the file and display it line by line.  
             //System.IO.StreamReader file =
             //    new System.IO.StreamReader(@"graph_simple.txt");
-            String name = "graph_" + size + ".txt";
+            String name = $"../../../graph_{size}.txt";
 
             System.IO.StreamReader file =
                             new System.IO.StreamReader(@name);
@@ -104,9 +104,9 @@ namespace Cs
          
             priorityQueue.Enqueue(new Pair(startingVertex, 0));
 
-            while (priorityQueue.Count == 0)
+            while (priorityQueue.Count != 0)
             {
-                int u = (priorityQueue.Dequeue()).second;
+                int u = (priorityQueue.Dequeue()).first;
 
                 if (visited[u])
                 {
@@ -115,7 +115,7 @@ namespace Cs
 
                 visited[u] = true;
 
-                for (int i = 0; i < adjacencyList[u].Capacity; i++)
+                for (int i = 0; i < adjacencyList[u].Count; i++)
                 {
                     int v = adjacencyList[u][i].first;
                     int c = adjacencyList[u][i].second;

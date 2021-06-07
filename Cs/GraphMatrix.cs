@@ -51,7 +51,7 @@ namespace Cs
             // Read the file and display it line by line.  
             //System.IO.StreamReader file =
             //    new System.IO.StreamReader(@"graph_simple.txt");
-            String name = "graph_" + size + ".txt";
+            String name = $"../../../graph_{size}.txt";
 
             System.IO.StreamReader file =
                             new System.IO.StreamReader(@name);
@@ -70,19 +70,18 @@ namespace Cs
 
                     for (int i = 0; i <= verticesNumber; i++)
                     {
-                        adjacencyMatrix.Add(new List<int>(verticesNumber + 1));
+                        adjacencyMatrix.Add(new List<int>());
+                    }
+                    
+                    for (int i = 0; i <= verticesNumber; i++)
+                    {
+                        for (int j = 0; j <= verticesNumber; j++)
+                        {
+                            adjacencyMatrix[i].Add(INF);
+                        }
                     }
                     continue;
                 }
-
-                for (int i = 0; i <= verticesNumber; i++)
-                {
-                    for (int j = 0; j <= verticesNumber; j++)
-                    {
-                        adjacencyMatrix[i].Add(INF);
-                    }
-                }
-
 
                 int firstVertex = Int32.Parse(splited[0]);
                 int secondVertex = Int32.Parse(splited[1]);
@@ -113,9 +112,9 @@ namespace Cs
             dist[startingVertex] = 0;  //distance from startingVertex to itself is 0
             priorityQueue.Enqueue(new Pair(startingVertex, 0));
 
-            while (priorityQueue.Count == 0)
+            while (priorityQueue.Count != 0)
             {
-                int u = (priorityQueue.Dequeue()).second;
+                int u = (priorityQueue.Dequeue()).first;
 
                 if (visited[u])
                 {
@@ -124,7 +123,7 @@ namespace Cs
 
                 visited[u] = true;
 
-                for (int i = 1; i < adjacencyMatrix[u].Capacity; i++)
+                for (int i = 1; i < adjacencyMatrix[u].Count; i++)
                 {
                     int v = i;
                     int c = adjacencyMatrix[u][i];

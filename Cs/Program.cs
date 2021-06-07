@@ -7,87 +7,89 @@ namespace Cs
     {
         static void Main(string[] args)
         {
-            int[] sizes = {500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500};
 
-        
-        for(int i=0; i<9; i++) {
+            int size = 3500;
+            
+            // Console.WriteLine("utworz (wpisz jakis znak i enter)");
+            // Console.ReadLine();
+            //
+            // GraphList graphList = new GraphList(size);
+            // graphList.clearDistAndVisited();
+            //
+            // Console.WriteLine("lista - dijkstra " + size + " (wpisz jakis znak i enter)");
+            // Console.ReadLine();
+            //
+            // graphList.dijkstra();
+            //
+            // Console.WriteLine("koniec");
+
+
+            // Console.WriteLine("utworz (wpisz jakis znak i enter)");
+            // Console.ReadLine();
+            //
+            // GraphList graphList = new GraphList(size);
+            // graphList.clearDistAndVisited();
+            //
+            // Console.WriteLine("lista - bellmanFord " + size + " (wpisz jakis znak i enter)");
+            // Console.ReadLine();
+            //
+            // graphList.bellmanFord();
+            //
+            // Console.WriteLine("koniec");
+            // Console.ReadLine();
+            
+            
+            // Console.WriteLine("utworz (wpisz jakis znak i enter)");
+            // Console.ReadLine();
+            //
+            // GraphList graphList = new GraphList(size);
+            // graphList.clearDistAndVisited();
+            //
+            // Console.WriteLine("lista - floydWarshall " + size + " (wpisz jakis znak i enter)");
+            // Console.ReadLine();
+            //
+            // graphList.floydWarshall();
+            // Console.WriteLine("koniec");
+            // Console.ReadLine(); 
+            
             Console.WriteLine("utworz (wpisz jakis znak i enter)");
             Console.ReadLine();
-
-            GraphList graphList = new GraphList(sizes[i]);
-            graphList.clearDistAndVisited();
-
-            Console.WriteLine("lista - dijkstra " + sizes[i] + " (wpisz jakis znak i enter)");
-            Console.ReadLine();
-
-            graphList.dijkstra();
-
-        }
-
-        for(int i=0; i<9; i++) {
-            Console.WriteLine("utworz (wpisz jakis znak i enter)");
-            Console.ReadLine();
-
-            GraphList graphList = new GraphList(sizes[i]);
-            graphList.clearDistAndVisited();
-
-            Console.WriteLine("lista - bellmanFord " + sizes[i] + " (wpisz jakis znak i enter)");
-            Console.ReadLine();
-
-            graphList.bellmanFord();
-        }
-
-        for(int i=0; i<9; i++) {
-            Console.WriteLine("utworz (wpisz jakis znak i enter)");
-            Console.ReadLine();
-
-            GraphList graphList = new GraphList(sizes[i]);
-            graphList.clearDistAndVisited();
-
-            Console.WriteLine("lista - floydWarshall " + sizes[i] + " (wpisz jakis znak i enter)");
-            Console.ReadLine();
-
-            graphList.floydWarshall();
-        }
-
-        for(int i=0; i<9; i++) {
-            Console.WriteLine("utworz (wpisz jakis znak i enter)");
-            Console.ReadLine();
-
-            GraphMatrix graphMatrix = new GraphMatrix(sizes[i]);
+            
+            GraphMatrix graphMatrix = new GraphMatrix(size);
             graphMatrix.clearDistAndVisited();
-
-            Console.WriteLine("macierz - dijkstra " + sizes[i] + " (wpisz jakis znak i enter)");
+            
+            Console.WriteLine("macierz - dijkstra " + size + " (wpisz jakis znak i enter)");
             Console.ReadLine();
-
+            
             graphMatrix.dijkstra();
-        }
-
-        for(int i=0; i<9; i++) {
-            Console.WriteLine("utworz (wpisz jakis znak i enter)");
+            Console.WriteLine("koniec");
             Console.ReadLine();
+            
+            
+            // Console.WriteLine("utworz (wpisz jakis znak i enter)");
+            // Console.ReadLine();
+            //
+            // GraphMatrix graphMatrix = new GraphMatrix(size);
+            // graphMatrix.clearDistAndVisited();
+            //
+            // Console.WriteLine("macierz - bellmanFord " + size + " (wpisz jakis znak i enter)");
+            // Console.ReadLine();
+            //
+            // graphMatrix.bellmanFord();
+            // Console.WriteLine("koniec");
 
-            GraphMatrix graphMatrix = new GraphMatrix(sizes[i]);
-            graphMatrix.clearDistAndVisited();
 
-            Console.WriteLine("macierz - bellmanFord " + sizes[i] + " (wpisz jakis znak i enter)");
-            Console.ReadLine();
-
-            graphMatrix.bellmanFord();
-        }
-
-        for(int i=0; i<9; i++) {
-            Console.WriteLine("utworz (wpisz jakis znak i enter)");
-            Console.ReadLine();
-
-            GraphMatrix graphMatrix = new GraphMatrix(sizes[i]);
-            graphMatrix.clearDistAndVisited();
-
-            Console.WriteLine("macierz - floydWarshall " + sizes[i] + " (wpisz jakis znak i enter)");
-            Console.ReadLine();
-
-            graphMatrix.floydWarshall();
-        }
+            // Console.WriteLine("utworz (wpisz jakis znak i enter)");
+            // Console.ReadLine();
+            //
+            // GraphMatrix graphMatrix = new GraphMatrix(size);
+            // graphMatrix.clearDistAndVisited();
+            //
+            // Console.WriteLine("macierz - floydWarshall " + size + " (wpisz jakis znak i enter)");
+            // Console.ReadLine();
+            //
+            // graphMatrix.floydWarshall();
+            // Console.WriteLine("koniec");
 
         }
     }

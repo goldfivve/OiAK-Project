@@ -7,8 +7,7 @@ namespace Cs
     public class GraphMatrix
     {
         private int verticesNumber, edgesNumber, startingVertex;
-        //int INF = Int32.MaxValue;
-        int INF = 200;
+        int INF = Int32.MaxValue;
 
         List<List<int>> adjacencyMatrix;
 

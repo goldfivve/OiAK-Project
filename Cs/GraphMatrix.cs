@@ -7,7 +7,8 @@ namespace Cs
     public class GraphMatrix
     {
         private int verticesNumber, edgesNumber, startingVertex;
-        int INF = Int32.MaxValue;
+        //int INF = Int32.MaxValue;
+        int INF = 200;
 
         List<List<int>> adjacencyMatrix;
 
@@ -79,7 +80,7 @@ namespace Cs
                 {
                     for (int j = 0; j <= verticesNumber; j++)
                     {
-                        adjacencyMatrix[i].Add(200);
+                        adjacencyMatrix[i].Add(INF);
                     }
                 }
 

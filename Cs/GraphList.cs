@@ -104,7 +104,7 @@ namespace Cs
          
             priorityQueue.Enqueue(new Pair(startingVertex, 0));
 
-            while (priorityQueue.Count == 0)
+            while (priorityQueue.Count != 0)
             {
                 int u = (priorityQueue.Dequeue()).first;
 
@@ -115,7 +115,7 @@ namespace Cs
 
                 visited[u] = true;
 
-                for (int i = 0; i < adjacencyList[u].Capacity; i++)
+                for (int i = 0; i < adjacencyList[u].Count; i++)
                 {
                     int v = adjacencyList[u][i].first;
                     int c = adjacencyList[u][i].second;

@@ -115,7 +115,7 @@ namespace Cs
 
             while (priorityQueue.Count == 0)
             {
-                int u = (priorityQueue.Dequeue()).second;
+                int u = (priorityQueue.Dequeue()).first;
 
                 if (visited[u])
                 {

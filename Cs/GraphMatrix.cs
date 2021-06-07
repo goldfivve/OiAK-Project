@@ -72,17 +72,16 @@ namespace Cs
                     {
                         adjacencyMatrix.Add(new List<int>());
                     }
+                    
+                    for (int i = 0; i <= verticesNumber; i++)
+                    {
+                        for (int j = 0; j <= verticesNumber; j++)
+                        {
+                            adjacencyMatrix[i].Add(INF);
+                        }
+                    }
                     continue;
                 }
-
-                for (int i = 0; i <= verticesNumber; i++)
-                {
-                    for (int j = 0; j <= verticesNumber; j++)
-                    {
-                        adjacencyMatrix[i].Add(INF);
-                    }
-                }
-
 
                 int firstVertex = Int32.Parse(splited[0]);
                 int secondVertex = Int32.Parse(splited[1]);

@@ -112,7 +112,7 @@ namespace Cs
             dist[startingVertex] = 0;  //distance from startingVertex to itself is 0
             priorityQueue.Enqueue(new Pair(startingVertex, 0));
 
-            while (priorityQueue.Count == 0)
+            while (priorityQueue.Count != 0)
             {
                 int u = (priorityQueue.Dequeue()).first;
 
@@ -123,7 +123,7 @@ namespace Cs
 
                 visited[u] = true;
 
-                for (int i = 1; i < adjacencyMatrix[u].Capacity; i++)
+                for (int i = 1; i < adjacencyMatrix[u].Count; i++)
                 {
                     int v = i;
                     int c = adjacencyMatrix[u][i];
